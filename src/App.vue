@@ -2,14 +2,15 @@
   <div id="app">
 
     <div class="wrap">
-        <router-view></router-view>
-        <ul class="footer">
-          <li><router-link to="/findMusic">发现音乐<i class="iconfont icon-diantaibaoshe"></i></router-link></li>
-          <li><router-link to="/myMusic">我的音乐<i class="iconfont icon-mianxingtubiaoyinle"></i></router-link></li>
-          <li><router-link to="/news">音乐资讯<i class="iconfont icon-pengyou"></i></router-link></li>
-          <li><router-link to="/account">账号<i class="iconfont icon-wode"></i></router-link></li>
-        </ul>
+      <router-view></router-view>
     </div>
+    <ul class="footer">
+      <li class="active"><router-link to="/findMusic"><i class="iconfont icon-diantaibaoshe"></i>发现音乐</router-link></li>
+      <li><router-link to="/myMusic"><i class="iconfont icon-mianxingtubiaoyinle"></i>我的音乐</router-link></li>
+      <li><router-link to="/news"><i class="iconfont icon-pengyou"></i>音乐资讯</router-link></li>
+      <li><router-link to="/account"><i class="iconfont icon-wode"></i>账号</router-link></li>
+    </ul>
+
 
   </div>
 </template>
