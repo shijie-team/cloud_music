@@ -22,8 +22,6 @@
   float:left;
   width:25%;
   height:100%;
-
-  position:relative;
 }
 .footer li a{
   display: flex;
@@ -38,6 +36,6 @@
 .footer li .iconfont{
 font-size:0.68rem ;
 }
-.footer  .active a{
+.footer li  .router-link-active{
     color: #ffffff;
 }
