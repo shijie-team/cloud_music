@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-
+		
     <div class="wrap">
       <router-view></router-view>
     </div>
@@ -10,11 +10,18 @@
       <li><router-link to="/news"><i class="iconfont icon-pengyou"></i>音乐资讯</router-link></li>
       <li><router-link to="/account"><i class="iconfont icon-wode"></i>账号</router-link></li>
     </ul>
-
-
   </div>
 </template>
-
+<script>
+import SongList from './components/songList'
+import FindMusic from './views/FindMusic'
+	export default{
+		name:'app',
+		components:{
+			SongList,FindMusic
+		}
+	}
+</script>
 <style scoped>
 @import "./assets/css/reset.css";
 @import "./assets/css/index.css";
