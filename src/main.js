@@ -9,6 +9,7 @@ import MyMusic from './views/MyMusic'
 import News from './views/News'
 import Account from './views/Account'
 import MusicPlayer from './views/MusicPlayer'
+import SongList from './components/songList'
 
 Vue.config.productionTip = false
 
@@ -22,7 +23,8 @@ const routes = [
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
-  {path:'/account',component:Account}
+  {path:'/account',component:Account},
+	{path:'/songList',component:SongList}
 ]
 const router = new VueRouter({
   routes:routes
