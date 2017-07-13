@@ -15,11 +15,10 @@ import MyCollection from './views/MyCollection'
 import Single from './views/Single.vue'
 import Program from './views/Program.vue'
 import Mv from './views/Mv.vue'
-
 import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
-
+import SongList from './components/songList'
 
 Vue.config.productionTip = false
 
@@ -47,6 +46,7 @@ const routes = [
   {path:'/recentPlay',component:RecentPlay},
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
+	{path:'/songList',component:SongList}
 ]
 const router = new VueRouter({
   routes:routes

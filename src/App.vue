@@ -12,13 +12,14 @@
   </div>
 </template>
 <script>
-    export default{
-      data(){
-        return {
-          msg:String,
-        }
-      }
-    }
+import SongList from './components/songList'
+import FindMusic from './views/FindMusic'
+	export default{
+		name:'app',
+		components:{
+			SongList,FindMusic
+		}
+	}
 </script>
 <style scoped>
 @import "./assets/css/reset.css";
