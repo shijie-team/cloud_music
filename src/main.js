@@ -17,7 +17,7 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
-  {path:'/',component:FindMusic},
+  {path:'*',redirect:'/findMusic'},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
