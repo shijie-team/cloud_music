@@ -19,9 +19,6 @@ body,html{
     height :100%;
     width:100%;
 }
-html{
-    font-size:12px;
-}
 .clearfix:atfter{
     content: '';
     display: block;
