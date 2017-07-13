@@ -11,6 +11,7 @@
   		<p class="findType"><span></span>心情/场景</p>
 				<ul class="findArtist">
 					<li v-for="item in scenario" v-on:click="scene(item.id,item)">
+					<li v-for="item in scenario" v-on:click="scene(item.id)">
 					<router-link to="/songList">
 						<p><img :src='item.banner' /></p>
 						<p>{{item.name}}</p>
@@ -22,6 +23,7 @@
   		<p class="findType"><span></span>艺术家</p>
 				<ul class="findArtist">
 					<li v-for="item in artist" v-on:click="scene(item.id,item)">
+					<li v-for="item in artist">
 						<p><img :src='item.banner' /></p>
 						<p>{{item.name}}</p>
 					</li>
@@ -60,6 +62,7 @@ export default {
 			genre :[],language:[],scenario:[],
 			songId:'',
 			songAss:[]
+			songId:''
   	}
   },
   mounted:function(){
@@ -93,6 +96,10 @@ export default {
     		this.songId=id
     		this.songAss=ass
     		li.$emit("userDefinedEvent",this.songId,this.songAss);
+  	scene:function(id){
+  		console.log(id)
+    		this.songId=id
+    		li.$emit("userDefinedEvent",this.songId);
   	}
   }
 }
