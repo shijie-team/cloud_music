@@ -22,7 +22,7 @@ body,html{
 html{
     font-size:12px;
 }
-.clearfix{
+.clearfix:atfter{
     content: '';
     display: block;
     height: 0;
