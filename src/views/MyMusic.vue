@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="myMusic">
-
+    <router-view></router-view>
       <!-- 頭部 -->
       <div class="header">
           <ul>
@@ -27,17 +27,20 @@
           <div class="PlayList">
               <div class="PlayListInfo">
                   <!-- 本地音乐 -->
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-mianxingtubiaoyinle"></i>
-                      <span class="texInfo">本地音乐</span>
+                  <router-link to="LocalMusic">
+                    <div class="playInfoItem">
+                      <div class="infoLeft">
+                        <i class="iconfont icon-mianxingtubiaoyinle"></i>
+                        <span class="texInfo">本地音乐</span>
+                      </div>
+                      <div class="infoRight">
+                        <span>num</span>
+                        <i class="iconfont icon-houdongfangiconfont24"></i>
+                      </div>
                     </div>
-                    <div class="infoRight">
-                      <span>num</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
+                  </router-link>
                   <!-- 最近播放 -->
+                  <router-link to="RecentPlay">
                   <div class="playInfoItem">
                     <div class="infoLeft">
                       <i class="iconfont icon-bofang-copy"></i>
@@ -48,7 +51,9 @@
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
+                  </router-link>
                   <!-- 我的电台 -->
+                  <router-link to="MyFm">
                   <div class="playInfoItem">
                     <div class="infoLeft">
                       <i class="iconfont icon-diantaibaoshe"></i>
@@ -59,17 +64,21 @@
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
+                  </router-link>
                   <!-- 我的收藏 -->
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-wodeshoucang"></i>
-                      <span class="texInfo">我的收藏</span>
+                  <router-link to="MyCollection">
+                    <div class="playInfoItem">
+                      <div class="infoLeft">
+                        <i class="iconfont icon-wodeshoucang"></i>
+                        <span class="texInfo">我的收藏</span>
+                      </div>
+                      <div class="infoRight">
+                        <span>num</span>
+                        <i class="iconfont icon-houdongfangiconfont24"></i>
+                      </div>
                     </div>
-                    <div class="infoRight">
-                      <span>num</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
+                  </router-link>
+
               </div>
           </div>
       </div>
@@ -166,8 +175,9 @@
 
 
 <script type="text/javascript">
-  import animate from 'animate.css'
-  console.log(animate);
+
+  import Animate from 'animate.css'
+  console.log(Animate);
   export default {
   name:'myMusic',
   data(){
@@ -188,10 +198,8 @@
 </script>
 
 
-<style lang="css">
+<style lang="css" sco>
 /*隐藏头部*/
-
-
 .titleMoreBox,.more,.hide{width: 100%;}
 .moreList{width: 100%;margin: 0 auto; padding-left: 20px;background: #fff;}
 .moreList .moreInfo{width: 100%;text-align: left;height: 1rem; border-bottom: 1px solid #ccc}
