@@ -1,0 +1,70 @@
+{
+    "banners": [
+        {
+            "id": 7246051,
+            "productId": 0,
+            "picId": 19116109160736816,
+            "backendPicId": 0,
+            "addTime": 100,
+            "position": 2,
+            "type": 1,
+            "url": "orpheus://subject/18499132",
+            "bannerExtJson": null,
+            "picStr": "http://p3.music.126.net/zATRwHiuqMSmLlPwb7jteg==/19116109160736815.jpg",
+            "backendPicStr": null
+        },
+        {
+            "id": 7246052,
+            "productId": 0,
+            "picId": 19116109160736788,
+            "backendPicId": 0,
+            "addTime": 100,
+            "position": 3,
+            "type": 1,
+            "url": "orpheus://subject/18499055",
+            "bannerExtJson": null,
+            "picStr": "http://p3.music.126.net/DoSpIuiJ9eEGxQdckISVnA==/19116109160736788.jpg",
+            "backendPicStr": null
+        },
+        {
+            "id": 7246053,
+            "productId": 0,
+            "picId": 18714787418334010,
+            "backendPicId": 0,
+            "addTime": 100,
+            "position": 4,
+            "type": 1,
+            "url": "http://music.163.com/store/product/detail?id=6407070",
+            "bannerExtJson": null,
+            "picStr": "http://p3.music.126.net/TdjWNm4zOvf3LOWuZ6d_Zg==/18714787418334009.jpg",
+            "backendPicStr": null
+        },
+        {
+            "id": 7246054,
+            "productId": 0,
+            "picId": 19044640904906864,
+            "backendPicId": 0,
+            "addTime": 100,
+            "position": 5,
+            "type": 1,
+            "url": "http://music.163.com/octave/m/album/detail?id=3367888",
+            "bannerExtJson": null,
+            "picStr": "http://p4.music.126.net/WBl62vrLjPa5vI2OZ_09Bw==/19044640904906865.jpg",
+            "backendPicStr": null
+        },
+        {
+            "id": 7246055,
+            "productId": 0,
+            "picId": 18619129906709990,
+            "backendPicId": 0,
+            "addTime": 100,
+            "position": 6,
+            "type": 1,
+            "url": "http://music.163.com/store/m/product/detail?id=6383073",
+            "bannerExtJson": null,
+            "picStr": "http://p4.music.126.net/3-WrS7bo3V9ay_bK099ZpA==/18619129906709991.jpg",
+            "backendPicStr": null
+        }
+    ],
+    "code": 200
+}
