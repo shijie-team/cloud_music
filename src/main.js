@@ -8,6 +8,7 @@ import FindMusic from './views/FindMusic'
 import MyMusic from './views/MyMusic'
 import News from './views/News'
 import Account from './views/Account'
+<<<<<<< HEAD
 import Register from './views/Account/Register'
 import Mine from './views/Account/Mine'
 import Setname from './views/Account/Setname'
@@ -18,6 +19,19 @@ import Childstate from './views/Account/accountchildren/Childstate'
 import Childmynews from './views/Account/accountchildren/Childmynews'
 import Mynews from './views/Account/Mynews'
 import Enter from './views/Account/Enter'
+=======
+import LocalMusic from './views/LocalMusic'
+import RecentPlay from './views/RecentPlay'
+import MyFm from './views/MyFm'
+import MyCollection from './views/MyCollection'
+import Single from './views/Single.vue'
+import Program from './views/Program.vue'
+import Mv from './views/Mv.vue'
+import Songs from './views/singleViews/Songs.vue'
+import Singer from './views/singleViews/Singer.vue'
+import Special from './views/singleViews/Special.vue'
+import SongList from './components/songList'
+>>>>>>> master
 
 Vue.config.productionTip = false
 
@@ -26,11 +40,12 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
-  {path:'/',component:FindMusic},
+  // {path:'*',redirect:'/findMusic'},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
   {path:'/account',component:Account},
+<<<<<<< HEAD
   {path:'/register',component:Register},
   {path:'/mine',component:Mine},
   {path:'/setname',component:Setname},
@@ -44,6 +59,23 @@ const routes = [
   ]},
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter}
+=======
+  {path:'/localMusic',component:LocalMusic,children:[
+    {path:'/',component:Single},
+    {path:'single',component:Single,children:[
+      {path:'/',component:Songs},
+      {path:'songs',component:Songs},
+      {path:'singer',component:Singer},
+      {path:'special',component:Special}
+    ]},
+    {path:'program',component:Program},
+    {path:'mv',component:Mv}
+  ]},
+  {path:'/recentPlay',component:RecentPlay},
+  {path:'/myFm',component:MyFm},
+  {path:'/myCollection',component:MyCollection},
+	{path:'/songList',component:SongList}
+>>>>>>> master
 ]
 const router = new VueRouter({
   routes:routes
