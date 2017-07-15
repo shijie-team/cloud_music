@@ -7,7 +7,7 @@
 				<i class="iconfont icon-huangguan"></i>
 			</div>
 			<div class="info-msg">
-				<p>是我是我就是我</p>
+				<p>{{myname}}</p>
 				<i>lv max</i>
 			</div>
 			<div class="info-sign">
@@ -97,7 +97,7 @@
 					<i class="iconfont icon-houdongfangiconfont24"></i>
 				</li>
 			</div>
-			<div class="quit">
+			<div class="quit" @click='quit'>
 				退出登录
 			</div>
 		</div>
@@ -105,7 +105,8 @@
 </template>
 
 <script>
-	import AccoHead from '../../components/account/AccountHead'
+import AccoHead from '../../components/account/AccountHead'
+import Account from '../Account' 
 export default {
   name: 'mine',
   components: {
@@ -115,15 +116,30 @@ export default {
   	return {
 		title:{
 			title:'我的资料',
-			tt:false
+			tt:false,
+			myname:''
 		}
   	}
+  },
+  methods:{
+	quit(){
+		localStorage.setItem('isLogin','false');
+		this.$router.push({path:'/account',component:Account});
+	}
+  },
+  beforeMount(){
+  	var isLogin = localStorage.getItem('isLogin');
+	if(!(isLogin == 'true')){
+		this.$router.push({path:'/account',component:Account});
+	};
+	this.myname=localStorage.getItem('name');
+	console.log(this.myname)
   }
 }
 </script>
 
 <style scoped>
-	#mine{font-size: .5rem;background: lightgray;overflow: auto;height: 100%;}
+	#mine{font-size: .5rem;background:lightgray;overflow: auto;height: 100%;text-align: center;}
 	.iconfont{font-size:.4rem}
 	.info{text-align: left;padding:.3rem;background: white;}
 	.info>div{display:inline-block;}

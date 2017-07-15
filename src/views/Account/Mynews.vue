@@ -30,7 +30,7 @@
 </script>
 
 <style scoped>
-	#mynews{font-size: .5rem;}
+	#mynews{font-size: .5rem; text-align: center;}
 	.msg{display: flex;justify-content: space-around;border:1px solid lightslategray;margin-top: .6rem;border-radius: 1rem;}
 	.msg>li{height: 1rem;line-height: 1rem;width:25%}
 </style>

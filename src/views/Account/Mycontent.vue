@@ -2,7 +2,7 @@
 	<div id="mycontent"  >
 		<div class="head">
 			<router-link to='/mine'><i class="iconfont icon-shang-copy-copy"></i></router-link>
-			<span v-show="title">是我是我还是我</span>
+			<span v-show="title">{{myname}}</span>
 			<i class="iconfont icon-fenxiang"></i>
 			<i class="iconfont icon-dengji"></i>
 		</div>
@@ -11,7 +11,7 @@
 				<div class="pic">
 					<i class="iconfont icon-huangguan"></i>
 				</div>
-				<p class='mypic-name'>是我是我还是我</p>
+				<p class='mypic-name'>{{myname}}</p>
 				<ul>
 					<li class='mypic-attent'><span>关注</span><span>0</span></li>
 					<li class='mypic-fans'><span>粉丝</span><span>0</span></li>
@@ -41,7 +41,8 @@
 		name:'mycontent',
 		data(){
 			return {
-				title:false
+				title:false,
+				myname:''
 				
 			}
 		},
@@ -56,12 +57,15 @@
 					this.title=false
 				}
 			}
+		},
+		beforeMount(){
+			this.myname=localStorage.getItem('name');
 		}
 	}
 </script>
 
 <style scoped>
-	#mycontent{font-size: .4rem;height: 100%;}
+	#mycontent{font-size: .4rem;height: 100%;text-align: center;}
 	.iconfont{font-size: .7rem;}
 	.icon-shang-copy-copy{float:left;width:1rem;color: white;}
 	.head{text-align: left;font-size: .6rem;position: fixed;height: 1.5rem;background: black;width:100%;color: white;line-height: 1.5rem;}
