@@ -8,6 +8,16 @@ import FindMusic from './views/FindMusic'
 import MyMusic from './views/MyMusic'
 import News from './views/News'
 import Account from './views/Account'
+import Register from './views/Account/Register'
+import Mine from './views/Account/Mine'
+import Setname from './views/Account/Setname'
+import Data from './views/Account/Data'
+import Mycontent from './views/Account/Mycontent'
+import Childmusic from './views/Account/accountchildren/Childmusic'
+import Childstate from './views/Account/accountchildren/Childstate'
+import Childmynews from './views/Account/accountchildren/Childmynews'
+import Mynews from './views/Account/Mynews'
+import Enter from './views/Account/Enter'
 import LocalMusic from './views/LocalMusic'
 import RecentPlay from './views/RecentPlay'
 import MyFm from './views/MyFm'
@@ -19,7 +29,6 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -32,6 +41,19 @@ const routes = [
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
   {path:'/account',component:Account},
+  {path:'/register',component:Register},
+  {path:'/mine',component:Mine},
+  {path:'/setname',component:Setname},
+  {path:'/data',component:Data},
+  {path:'/mycontent',component:Mycontent,children:[
+  		{path:'',component:Childmusic},
+  		{path:'childmusic',component:Childmusic},
+  		{path:'childstate',component:Childstate},
+  		{path:'childmynews',component:Childmynews}
+  		
+  ]},
+  {path:'/mynews',component:Mynews},
+  {path:'/enter',component:Enter},
   {path:'/localMusic',component:LocalMusic,children:[
     {path:'/',component:Single},
     {path:'single',component:Single,children:[
