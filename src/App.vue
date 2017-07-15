@@ -14,6 +14,7 @@
 <script>
 import SongList from './components/songList'
 import FindMusic from './views/FindMusic'
+
 	export default{
 		name:'app',
 		components:{
