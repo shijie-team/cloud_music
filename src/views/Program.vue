@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="program">
-      <Search></Search>
+      <Search :title="searchTitle"></Search>
       <div class="programTitle">
           <ul class="titleInfo">
               <li class="titleInfoLeft"><span>1期节目，</span><span>共6.2M</span></li>
@@ -25,7 +25,9 @@
 import Search from '../components/Search.vue'
 export default {
   data(){
-    return{}
+    return{
+      searchTitle:'搜索本地节目'
+    }
   },
   components:{
     Search

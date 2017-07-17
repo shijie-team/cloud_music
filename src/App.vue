@@ -14,11 +14,13 @@
 <script>
 import SongList from './components/songList'
 import FindMusic from './views/FindMusic'
+import RecentPlay from './views/RecentPlay'
+import MyMusic from './views/MyMusic'
 
 	export default{
 		name:'app',
 		components:{
-			SongList,FindMusic
+			SongList,FindMusic,RecentPlay,MyMusic
 		}
 	}
 </script>

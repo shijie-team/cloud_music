@@ -12,7 +12,7 @@
 		<div class="fistsong" v-bind:class="{ active: isfistsong}">
 			<p class="fistP"><i class="iconfont icon-diantaibaoshe"></i></p>
 			<div class="fistDiv">
-				<p @click="backAll">播放全部</p>
+				<p @click="backAll"><router-link to="/MusicPlayer">播放全部</router-link></p>
 				<p><i class="iconfont icon-ranking"></i>多选</p>
 			</div>
 
@@ -89,6 +89,7 @@
 				self.ass = ass;
 				self.$http.get('https://douban.fm/j/v2/playlist?channel=' + (self.msg) + '&kbps=192&client=s%3Amainsite%7Cy%3A3.0&app_name=radio_website&version=100&type=n').then(function(res) {
 					self.title = res.body.song[0].title;
+//					songC(self.title)
 					self.$http.get('https://douban.fm/j/v2/query/all?q=' + (self.title) + '&start=0&limit=all').then(function(res) {
 						self.items = res.body
 						for(var i = 0; i < self.items.length; i++) {
@@ -104,7 +105,19 @@
 			});
 		},
 		methods: {
-
+//			songC:function(arr){
+//				this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
+//						this.items = res.body
+//						for(var i = 0; i < this.items.length; i++) {
+//							for(var j = 0; j < this.items[i].items.length; j++) {
+//								if(this.items[i].items[j].url) {
+//									this.url = this.items[i]
+//								}
+//								break;
+//							}
+//						}
+//					})
+//			},
 			Scro: function(event) {
 				if(this.$refs.songList.scrollTop >= 375) {
 					this.isfistsong = true;
@@ -112,10 +125,11 @@
 					this.isfistsong = false;
 				}
 			},
-			songPlay: function(arr) {
+			songPlay: function(obj) {
 				var columnInfoList = [];
-				columnInfoList.push(arr);
-				localStorage.setItem('columnInfoList', JSON.stringify(columnInfoList));
+				columnInfoList.push(obj);
+				localStorage.setItem('singleSong', JSON.stringify(obj));
+				this.$router.push('/MusicPlayer')
 			},
 			more: function(item) {
 				this.item = item;
@@ -140,10 +154,9 @@
 				}
 				this.obj.push(this.item)
 				localStorage.setItem('collectioned',JSON.stringify(this.obj))
-        console.log(this.obj);
 			},
 			backAll:function(){
-				localStorage.setItem('columnInfoList',JSON.stringify(this.url.items))
+				localStorage.setItem('playedSongs',JSON.stringify(this.url.items))
 			}
 		}
 	}
