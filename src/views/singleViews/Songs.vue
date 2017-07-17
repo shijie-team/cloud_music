@@ -33,6 +33,11 @@
 
 <script>
 export default {
+  methods:{
+    goback(){
+      history.go(-1);
+    }
+  }
 }
 </script>
 

@@ -10,18 +10,19 @@
           </ul>
       </div>
       <!-- 顶部隐藏 -->
-      <div class="titleMoreBox" v-show="toggle2" >
-          <div class="more animated" transition="bounce">
-                <ul class="moreList">
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-unie644"></i></span>&nbsp;&nbsp;<span>新建歌单</span></li>
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-paixingbang"></i></span>&nbsp;&nbsp;<span>管理歌单</span></li>
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-gengduo_tinggemianliuliang_"></i></span>&nbsp;&nbsp;<span>我的音乐云盘</span></li>
-                </ul>
+      <transition name="fadeDown">
+        <div class="titleMoreBox" v-show="toggle2" >
+          <div class="more">
+            <ul class="moreList">
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-unie644"></i></span>&nbsp;&nbsp;<span>新建歌单</span></li>
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-paixingbang"></i></span>&nbsp;&nbsp;<span>管理歌单</span></li>
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-gengduo_tinggemianliuliang_"></i></span>&nbsp;&nbsp;<span>我的音乐云盘</span></li>
+            </ul>
           </div>
-          <div class="hide" @click="toggle2=false">
-
-          </div>
-      </div>
+          <div class="hide" @click="toggle2=false" >
+        </div>
+        </div>
+ </transition>
       <!-- 頭部列表 -->
       <div class="playBox">
           <div class="PlayList">
@@ -82,89 +83,24 @@
               </div>
           </div>
       </div>
-      <!-- 创建歌单 -->
-      <div class="createPlaylist">
-        <div class="PlaylistTitle">
-            <div class="titleInfo">
-              <p @click="toggle=!toggle"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我创建的歌单</span><span class="dataNum">(n)</span></p>
-            </div>
 
-            <div class="playListBox" v-show="toggle">
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">歌单名：英文流行歌曲</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">歌单名：欧美情歌</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
       <!-- 收藏的歌单 -->
       <div class="createPlaylist">
         <div class="PlaylistTitle">
             <div class="titleInfo">
-              <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌单</span><span class="dataNum">(n)</span></p>
+              <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌曲</span><span class="dataNum">({{num}})</span></p>
             </div>
 
-            <div class="playListBox" v-show="toggle1">
+            <div class="playListBox" v-show="toggle1" v-for="item in obj">
                 <div class="palyListInfo">
 
                     <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
+                      <img :src="item.picture" alt="">
                     </div>
 
                     <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
+                        <p class="listInfoRightTil">{{item.albumtitle}}</p>
+                        <span>{{item.artist_name}}</span>
                     </div>
                 </div>
             </div>
@@ -175,24 +111,22 @@
 
 
 <script type="text/javascript">
-
   import Animate from 'animate.css'
-  console.log(Animate);
   export default {
-  name:'myMusic',
   data(){
     return{
-        toggle:true,toggle1:true,toggle2:false
+        toggle:true,toggle1:true,toggle2:false,
+        obj:[],
+        num:""
     }
   },
     methods:{
 
-  }
-  ,transitions:{
-    bounce:{
-      enterClass:'bounceInLeft',
-      leaveClass:'bounceOutRight'
-    }
+  },
+  mounted(){
+    this.obj = JSON.parse(localStorage.getItem('collectioned'));
+    console.log(this.obj);
+    this.num =this.obj.length;
   }
 }
 </script>
@@ -214,7 +148,7 @@
 .header{ width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
 .header ul {width: 100%;height: 100%;overflow: hidden;}
 .header ul li{width: 33%;height: 100%;float: left;line-height: 1.07rem;}
-.header ul li:nth-child(2){font-size: .45rem;}
+.header ul li:nth-child(2){font-size: .45rem;text-align: center;}
 .header ul li:first-child{text-align: left;padding-left: .33rem;}
 .header ul li:last-child{text-align: right;padding-right: .33rem;}
 .iconfont{font-size: .6rem}
@@ -238,4 +172,11 @@
 .listInfoLeft{width: 17%;float: left;height: 100%;}
 .listInfoRight{width: 83%;float: right;;text-align: left;height: 100%;border-bottom: 1px solid #ccc}
 .listInfoLeft img{width: 1.2rem;}
+
+.fadeDown-enter-active, .fadeDown-leave-active {
+  transition: opacity .3s
+}
+.fadeDown-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
 </style>

@@ -133,13 +133,14 @@
 					for(var i = 0; i < this.obj.length; i++) {
 						if(this.obj[i].aid === this.item.aid) {
 							this.obj.splice(i,1)
-						} 
+						}
 					}
 				} else {
 					this.obj = [];
 				}
 				this.obj.push(this.item)
 				localStorage.setItem('collectioned',JSON.stringify(this.obj))
+        console.log(this.obj);
 			},
 			backAll:function(){
 				localStorage.setItem('columnInfoList',JSON.stringify(this.url.items))
@@ -155,108 +156,108 @@
 		overflow: auto;
 		position: relative;
 	}
-	
+
 	.songCatalogue {
 		width: 100%;
 		height: 5rem;
 		border-bottom: .2rem solid lightgray;
 	}
-	
+
 	.fistsong {
 		width: 100%;
 		height: 1.4rem;
 		font-size: .48rem;
 	}
-	
+
 	.fistP {
 		width: 10%;
 		line-height: 1.4rem;
 		text-align: center;
 		float: left;
 	}
-	
+
 	.fistDiv {
 		width: 90%;
 		line-height: 1.4rem;
 		border-bottom: .03rem solid lavender;
 		float: right;
 	}
-	
+
 	.fistDiv>p:nth-child(2) {
 		float: right;
 		width: 20%;
 		line-height: 1.4rem;
 	}
-	
+
 	.fistDiv>p:nth-child(1) {
 		float: left;
 		width: 80%;
 		text-align: left;
 	}
-	
+
 	.fistsong p .iconfont {
 		font-size: .65rem;
 	}
-	
+
 	.songMenu {
 		width: 100%;
 		height: 1.5rem;
 		font-size: .48rem;
 		overflow: auto;
 	}
-	
+
 	.songP {
 		width: 10%;
 		line-height: 1.4rem;
 		text-align: center;
 		float: left;
 	}
-	
+
 	.sonDiv {
 		width: 90%;
 		height: 1.4rem;
 		border-bottom: .03rem solid lavender;
 		float: left;
 	}
-	
+
 	.songName {
 		float: left;
 		width: 90%;
 		text-align: left;
 	}
-	
+
 	.songName p:nth-child(1) {
 		line-height: 0.7rem;
 		overflow: auto;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	
+
 	.songName p:nth-child(2) {
 		line-height: 0.7rem;
 		font-size: .4rem;
 		color: lightgray;
 	}
-	
+
 	.songMore {
 		width: 10%;
 		float: right;
 		line-height: 1.4rem;
 	}
-	
+
 	.songP .iconfont {
 		font-size: .65rem;
 	}
-	
+
 	.songMore .iconfont {
 		font-size: .65rem;
 	}
-	
+
 	.songUl {
 		width: 100%;
 		height: 62%;
 	}
-	
+
 	.cataP {
 		width: 40%;
 		float: left;
@@ -264,20 +265,20 @@
 		margin-left: .3rem;
 		margin-right: .3rem;
 	}
-	
+
 	.cataDiv {
 		width: 54%;
 		float: left;
 		margin-top: .7rem;
 		font-size: .7rem;
 	}
-	
+
 	.cataDiv p:last-child {
 		width: 100%;
 		margin-top: .2rem;
 		position: relative;
 	}
-	
+
 	.cataDiv p:last-child img {
 		border-radius: 50%;
 		position: absolute;
@@ -285,13 +286,13 @@
 		width: .8rem;
 		height: .8rem;
 	}
-	
+
 	.cataDiv p:last-child span {
 		display: inline-block;
 		font-size: .4rem;
 		text-indent: .9rem;
 	}
-	
+
 	.active {
 		position: fixed;
 		top: 0px;
@@ -301,7 +302,7 @@
 		font-size: .48rem;
 		background: #FFFDEF;
 	}
-	
+
 	.songCollect {
 		width: 100%;
 		position: fixed;
@@ -311,40 +312,40 @@
 		top: 6rem;
 		display: none;
 	}
-	
+
 	.songCollect>ul>li {
 		width: 100%;
 		height: 1.2rem;
 		line-height: 1.2rem;
 	}
-	
+
 	.songCollect li:first-child {
 		border-bottom: .02rem solid lavender;
 		font-size: .4rem;
 	}
-	
+
 	.songCollect>ul>li>p:first-child {
 		float: left;
 		width: 10%;
 		height: 1.2rem;
 		text-align: center;
 	}
-	
+
 	.songCollect ul li p:last-child {
 		float: left;
 		width: 90%;
 		border-bottom: .02rem solid lavender;
 		font-size: .5rem;
 	}
-	
+
 	.songCollect>ul>li>p:first-child .iconfont {
 		font-size: .65rem;
 	}
-	
+
 	.collect {
 		display: block;
 	}
-	
+
 	.songCoverage {
 		width: 100%;
 		height: 27%;

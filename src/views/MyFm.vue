@@ -38,7 +38,7 @@
 export default {
   methods:{
     goback(){
-      history.go(-1);
+      this.$router.push({path: '/MyMusic'});
     }
   }
 }
@@ -50,7 +50,7 @@ export default {
 .header{ width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
 .header ul {width: 100%;height: 100%;overflow: hidden;}
 .header ul li{width: 33%;height: 100%;float: left;line-height: 1.07rem;}
-.header ul li:nth-child(2){font-size: .45rem;}
+.header ul li:nth-child(2){font-size: .45rem;text-align: center;}
 .header ul li:first-child{text-align: left;padding-left: .33rem;}
 .header ul li:last-child{text-align: right;padding-right: .33rem;}
 .iconfont{font-size: .6rem}
