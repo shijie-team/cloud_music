@@ -41,6 +41,7 @@ const routes = [
   // {path:'*',redirect:'/musicPlayer'},
   {path:'/musicPlayer',component:MusicPlayer},
   {path:'*',redirect:'/findMusic'},
+  {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
@@ -50,7 +51,7 @@ const routes = [
   {path:'/setname',component:Setname},
   {path:'/data',component:Data},
   {path:'/mycontent',component:Mycontent,children:[
-  		{path:'',component:Childmusic},
+  		{path:'/',component:Childmusic},
   		{path:'childmusic',component:Childmusic},
   		{path:'childstate',component:Childstate},
   		{path:'childmynews',component:Childmynews}
@@ -59,9 +60,9 @@ const routes = [
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter},
   {path:'/localMusic',component:LocalMusic,children:[
-    {path:'/',component:Single},
+    {path:'/',redirect:"single"},
     {path:'single',component:Single,children:[
-      {path:'/',component:Songs},
+      {path:'/',redirect:"songs"},
       {path:'songs',component:Songs},
       {path:'singer',component:Singer},
       {path:'special',component:Special}

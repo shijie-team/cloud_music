@@ -83,88 +83,24 @@
               </div>
           </div>
       </div>
-      <!-- 创建歌单 -->
-      <div class="createPlaylist">
-        <div class="PlaylistTitle">
-            <div class="titleInfo">
-              <p @click="toggle=!toggle"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我创建的歌单</span><span class="dataNum">(n)</span></p>
-            </div>
 
-            <div class="playListBox" v-show="toggle">
-                <div class="palyListInfo">
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">歌单名：英文流行歌曲</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">歌单名：欧美情歌</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
       <!-- 收藏的歌单 -->
       <div class="createPlaylist">
         <div class="PlaylistTitle">
             <div class="titleInfo">
-              <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌单</span><span class="dataNum">(n)</span></p>
+              <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌曲</span><span class="dataNum">({{num}})</span></p>
             </div>
 
-            <div class="playListBox" v-show="toggle1">
+            <div class="playListBox" v-show="toggle1" v-for="item in obj">
                 <div class="palyListInfo">
 
                     <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
+                      <img :src="item.picture" alt="">
                     </div>
 
                     <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
-                    </div>
-                </div>
-                <div class="palyListInfo">
-
-                    <div class="listInfoLeft">
-                      <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
-                    </div>
-
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">我喜欢的音乐</p>
-                        <span>nun首</span>
+                        <p class="listInfoRightTil">{{item.albumtitle}}</p>
+                        <span>{{item.artist_name}}</span>
                     </div>
                 </div>
             </div>
@@ -175,18 +111,22 @@
 
 
 <script type="text/javascript">
-
   import Animate from 'animate.css'
-  console.log(Animate);
   export default {
-  name:'myMusic',
   data(){
     return{
-        toggle:true,toggle1:true,toggle2:false
+        toggle:true,toggle1:true,toggle2:false,
+        obj:[],
+        num:""
     }
   },
     methods:{
 
+  },
+  mounted(){
+    this.obj = JSON.parse(localStorage.getItem('collectioned'));
+    console.log(this.obj);
+    this.num =this.obj.length;
   }
 }
 </script>
@@ -236,7 +176,7 @@
 .fadeDown-enter-active, .fadeDown-leave-active {
   transition: opacity .3s
 }
-.fadeDown-enter, .fadeDown-leave-to /* .fade-leave-active in <2.1.8 */ {
+.fadeDown-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
 }
 </style>
