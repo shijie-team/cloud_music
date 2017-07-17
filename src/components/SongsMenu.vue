@@ -1,6 +1,6 @@
 <template id="">
   <div class="songsMenu">
-    <div class="menu">
+    <div class="menu" v-show='menuState'>
       <p><i class="iconfont icon-cuo" @click='close'></i></p>
       <ul>
         <li @click ='getSong(v,i)' v-for='(v,i) in songs' :class="selectedSongIndex == i ?  'choosen' : ''">{{v.title}}----{{v.artist_name}}</li>
@@ -22,7 +22,8 @@
 export default{
   data(){
     return {
-      clickIndex:-1
+      clickIndex:-1,
+      menuState:false
     }
   },
   computed:{
@@ -34,6 +35,7 @@ export default{
     }
   },
   mounted(){
+    this.menuState = true;
   },
   methods:{
     getSong(v,i){
@@ -42,6 +44,7 @@ export default{
       this.changeSong();
     },
     close(){
+      this.menuState = false;
       this.$store.dispatch('showMenu',false);
     },
     changeSong(){

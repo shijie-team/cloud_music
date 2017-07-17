@@ -197,7 +197,7 @@ export default {
     getSongs(songObj){
       var songs = JSON.parse(localStorage.getItem('collectioned'));
       if(songs){
-        this.songs = songs;
+        this.songs = this.songs.concat(songs);
       }
       if(songObj){
         if(this.getSongIndex(this.songs,songObj) || this.getSongIndex(this.songs,songObj) === 0){
@@ -279,9 +279,18 @@ export default {
   },
   mounted(){
     var songOjb = JSON.parse(localStorage.getItem('singleSong'));
-    localStorage.removeItem('singleSong');
-    console.log(songOjb)
-    this.getSongs(songOjb);
+    if(songOjb){
+      localStorage.removeItem('singleSong');
+      this.getSongs(songOjb);
+    } else {
+      var allSongs = JSON.parse(localStorage.getItem('playAllSongs'));
+      if(allSongs && allSongs.length > 0){
+        this.songs = this.songs.concat(allSongs);
+          this.getSongs(this.songs[0]);
+      }
+
+    }
+
     clearInterval(this.checkTimer);
     this.checkTimer = setInterval(this.checkPlayStatus,20);
   },
