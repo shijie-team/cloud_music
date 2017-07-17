@@ -15,25 +15,25 @@
               <img src="http://www.myputaoyuan.cn/cimg/bd116760854.jpg" alt=""><span>最近播放的歌曲</span>
           </div>
           <div class="rightInfo">
-              <span>num</span><i class="iconfont icon-houdongfangiconfont24"></i>
+              <span>{{num}}</span><i class="iconfont icon-houdongfangiconfont24"></i>
           </div>
       </div>
   </div>
   <div class="txtBox">
       <div class="txtInfo">
-          <p>最近播放的歌单/专辑/电台</p>
+          <p>最近播放的歌曲</p>
       </div>
   </div>
   <div class="palyList">
-    <div class="palyListInfo">
+    <div class="palyListInfo" v-for = "item in obj">
 
         <div class="listInfoLeft">
-          <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
+          <img :src="item.picture" alt="">
         </div>
 
         <div class="listInfoRight">
-            <p class="listInfoRightTil">我喜欢的音乐</p>
-            <span>nun首</span>
+            <p class="listInfoRightTil">{{item.albumtitle}}</p>
+            <span>{{item.artist_name}}</span>
         </div>
     </div>
   </div>
@@ -43,11 +43,22 @@
 <script>
 export default {
   data(){
-    return{}
+    return{
+      obj:"",
+      num:""
+    }
   },
   methods:{
     goback(){
-      history.go(-1);
+      this.$router.push({path: '/MyMusic'});
+    }
+  },
+  mounted(){
+    this.obj = JSON.parse(localStorage.getItem("playedSongs"));
+    console.log(this.obj);
+    this.num = this.obj.length;
+    if(this.num == null){
+      this.num == 0;
     }
   }
 }
@@ -64,7 +75,7 @@ span{display: inline-block;}
 .header ul li:last-child{text-align: right;padding-right: .33rem;}
 .iconfont{font-size: .6rem}
 
-.title,.titleInfo{width:100%;}
+.title,.titleInfo{width:100%;background: #fff;}
 .titleInfo{height: 1.4rem;line-height: 1.4rem;position: relative;}
 .leftInfo{width: 50%;float: left;text-align: left;}
 .leftInfo img{width: 10%;position: absolute;top: .13rem;left: .13rem}

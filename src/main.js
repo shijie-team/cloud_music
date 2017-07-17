@@ -8,6 +8,8 @@ import FindMusic from './views/FindMusic'
 import MyMusic from './views/MyMusic'
 import News from './views/News'
 import Account from './views/Account'
+import MusicPlayer from './views/MusicPlayer'
+import store from './store'
 import Register from './views/Account/Register'
 import Mine from './views/Account/Mine'
 import Setname from './views/Account/Setname'
@@ -39,7 +41,9 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
-  // {path:'*',redirect:'/findMusic'},
+  {path:'*',redirect:'/findMusic'},
+  {path:'*',redirect:'/musicPlayer'},
+  {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
@@ -49,11 +53,11 @@ const routes = [
   {path:'/setname',component:Setname},
   {path:'/data',component:Data},
   {path:'/mycontent',component:Mycontent,children:[
-  		{path:'',component:Childmusic},
+  		{path:'/',component:Childmusic},
   		{path:'childmusic',component:Childmusic},
   		{path:'childstate',component:Childstate},
   		{path:'childmynews',component:Childmynews}
-  		
+
   ]},
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter},
@@ -61,9 +65,9 @@ const routes = [
   {path:'/free',component:free},
   {path:'/shop',component:shop},
   {path:'/localMusic',component:LocalMusic,children:[
-    {path:'/',component:Single},
+    {path:'/',redirect:"single"},
     {path:'single',component:Single,children:[
-      {path:'/',component:Songs},
+      {path:'/',redirect:"songs"},
       {path:'songs',component:Songs},
       {path:'singer',component:Singer},
       {path:'special',component:Special}
@@ -83,5 +87,6 @@ new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
-  router:router
+  router:router,
+  store
 })
