@@ -1,6 +1,6 @@
 <template id="">
   <div  id="musicPlayer">
-    <TopBack :title='songsName'></TopBack>
+    <TopBack  :model ='selfModel'></TopBack>
     <div class="wrap">
       <div class="author">
         {{author}}
@@ -30,7 +30,7 @@
         <i class="iconfont icon-shangyishou" @click='playPrevSong' ref='preBtn'></i>
         <i class="iconfont icon-bofang-copy" @click='playOrStop' :class='isPlay'></i>
         <i class="iconfont icon-shangyishou1" @click='playNextSong' ref='nextBtn'></i>
-        <i class="iconfont icon-quku"  @click='showMenu'></i>
+        <i class="iconfont icon-quku" @click="showMenu"></i>
       </div>
     </div>
     <SongsMenu v-show='menuShow' @changeCurrenSong="changeSong"></SongsMenu>
@@ -66,6 +66,12 @@ export default {
     }
   },
   computed:{
+    selfModel(){
+      return {
+        title:this.songsName,
+        model:this
+      };
+    },
     currentSong(){
       var songObj ={};
       if(this.songs && this.songs.length){
@@ -84,6 +90,7 @@ export default {
     }
   },
   methods:{
+
     setCurrentSongIndex(index){
       this.$store.dispatch('setSelectedSongIndex',index);
     },
@@ -190,7 +197,7 @@ export default {
     getSongs(songObj){
       var songs = JSON.parse(localStorage.getItem('collectioned'));
       if(songs){
-        this.songs = songs;
+        this.songs = this.songs.concat(songs);
       }
       if(songObj){
         if(this.getSongIndex(this.songs,songObj) || this.getSongIndex(this.songs,songObj) === 0){
@@ -204,9 +211,11 @@ export default {
 
     },
     setSongTime(){
+      if(this.$refs.audio){
         this.totalTime = this.formateTime(this.$refs.audio.duration/60)+':'+this.formateTime(this.$refs.audio.duration%60);
         this.currentTime =  this.formateTime(this.$refs.audio.currentTime/60)+':'+this.formateTime(this.$refs.audio.currentTime%60);
         this.songRange = this.$refs.audio.currentTime*100/this.$refs.audio.duration;
+      }
     },
     formateTime(time){
       time = Math.floor(time);
@@ -244,10 +253,12 @@ export default {
 
     },
     getSongIndex(songs,songObj){
-      for(var i = 0 ; i < songs.length;i++){
-        if(songs[i].aid  == songObj.aid){
-            return i;
-        }
+      if(songs && songObj && songs.length > 0){
+          for(var i = 0 ; i < songs.length;i++){
+              if(songs[i].aid  == songObj.aid){
+                  return i;
+              }
+          }
       }
       return false;
     },
@@ -268,13 +279,22 @@ export default {
   },
   mounted(){
     var songOjb = JSON.parse(localStorage.getItem('singleSong'));
-    localStorage.removeItem('singleSong');
-    console.log(songOjb)
-    this.getSongs(songOjb);
+    if(songOjb){
+      localStorage.removeItem('singleSong');
+      this.getSongs(songOjb);
+    } else {
+      var allSongs = JSON.parse(localStorage.getItem('playAllSongs'));
+      if(allSongs && allSongs.length > 0){
+        this.songs = this.songs.concat(allSongs);
+          this.getSongs(this.songs[0]);
+      }
+
+    }
+
     clearInterval(this.checkTimer);
     this.checkTimer = setInterval(this.checkPlayStatus,20);
   },
-    beforeRouteLeave (to, from, next) {
+    destroyed() {
         clearInterval(this.checkTimer);
     }
 }
