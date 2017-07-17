@@ -15,12 +15,12 @@
 		<div class="hot">
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;热门搜索</p>
 			<div class="span">
-				<span v-for="item in hotHunt" @click="huntspan(item)"><router-link to="/MusicPlayer">{{item}}</router-link></span>
+				<span v-for="item in hotHunt" @click="huntspan(item)">{{item}}</span>
 			</div>
 		</div>
 		<ul class="HuntU">
-			<li v-for="item in obj">
-				<router-link to="/MusicPlayer">{{item.title}}</router-link>
+			<li v-for="item in obj" @click="hut(item.title)">
+				{{item.title}}
 			</li>
 		</ul>
 	</div>
@@ -37,17 +37,16 @@
 				columnInfoList: [],
 				url: [],
 				isshow: false,
-				obj: ''
+				obj: []
 			}
 
 		},
 		methods: {
 			acquire: function(cc) {
 				this.nameSong(cc)
-				var acq = []
-				acq.push(cc);
 				this.isshow = false;
-				localStorage.setItem('playedSongs', JSON.stringify(acq));
+				localStorage.setItem('singleSong', JSON.stringify(cc));
+				this.$router.push('/MusicPlayer')
 			},
 			nameSong: function(aff) {
 				this.obj = JSON.parse(localStorage.getItem('collectioned'));
@@ -62,6 +61,7 @@
 				}
 				this.obj.push(aff)
 				localStorage.setItem('collectioned', JSON.stringify(this.obj))
+				
 			},
 			cancel: function() {
 				history.go(-1);
@@ -71,23 +71,32 @@
 				this.isshow = true
 
 			},
-			demonstrate: function(arr) {
+			hut:function(name){
+				demonstrate(name)
+			},
+			demonstrate: function(arr,flag) {
 				var sel = this
 				this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
 					sel.items = res.body
 					for(var i = 0; i < sel.items.length; i++) {
 						for(var j = 0; j < sel.items[i].items.length; j++) {
 							if(sel.items[i].items[j].url) {
-								sel.url = sel.items[i]
+								sel.url = sel.items[i];
+								if(flag){
+									localStorage.setItem('singleSong', JSON.stringify(sel.items[1].items[0]));
+									this.$router.push('/MusicPlayer');
+								}
 							}
 							break;
 						}
 					}
 				})
+				
 			},
 			huntspan: function(b) {
-				this.demonstrate(b)
+				this.demonstrate(b,true)
 			}
+			
 		},
 		mounted:function(){
 			this.nameSong()

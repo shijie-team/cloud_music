@@ -12,7 +12,7 @@
 		<div class="fistsong" v-bind:class="{ active: isfistsong}">
 			<p class="fistP"><i class="iconfont icon-diantaibaoshe"></i></p>
 			<div class="fistDiv">
-				<p @click="backAll"><router-link to="/MusicPlayer">播放全部</router-link></p>
+				<p @click="backAll">播放全部</p>
 				<p><i class="iconfont icon-ranking"></i>多选</p>
 			</div>
 
@@ -89,7 +89,6 @@
 				self.ass = ass;
 				self.$http.get('https://douban.fm/j/v2/playlist?channel=' + (self.msg) + '&kbps=192&client=s%3Amainsite%7Cy%3A3.0&app_name=radio_website&version=100&type=n').then(function(res) {
 					self.title = res.body.song[0].title;
-//					songC(self.title)
 					self.$http.get('https://douban.fm/j/v2/query/all?q=' + (self.title) + '&start=0&limit=all').then(function(res) {
 						self.items = res.body
 						for(var i = 0; i < self.items.length; i++) {
@@ -103,21 +102,30 @@
 					})
 				})
 			});
+			li.$on("userDefined", function(msg){
+				self.ass =msg
+				self.songC(msg.name)
+			})
 		},
 		methods: {
-//			songC:function(arr){
-//				this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
-//						this.items = res.body
-//						for(var i = 0; i < this.items.length; i++) {
-//							for(var j = 0; j < this.items[i].items.length; j++) {
-//								if(this.items[i].items[j].url) {
-//									this.url = this.items[i]
-//								}
-//								break;
-//							}
-//						}
-//					})
-//			},
+			songC:function(arr){
+				var sel = this
+				this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
+					sel.items = res.body
+					for(var i = 0; i < sel.items.length; i++) {
+						for(var j = 0; j < sel.items[i].items.length; j++) {
+							if(sel.items[i].items[j].url) {
+								sel.url = sel.items[i];
+								if(flag){
+									localStorage.setItem('singleSong', JSON.stringify(sel.items[1].items[0]));
+									this.$router.push('/MusicPlayer');
+								}
+							}
+							break;
+						}
+					}
+				})
+			},
 			Scro: function(event) {
 				if(this.$refs.songList.scrollTop >= 375) {
 					this.isfistsong = true;
@@ -156,7 +164,8 @@
 				localStorage.setItem('collectioned',JSON.stringify(this.obj))
 			},
 			backAll:function(){
-				localStorage.setItem('playedSongs',JSON.stringify(this.url.items))
+				localStorage.setItem('playAllSongs',JSON.stringify(this.url.items))
+				this.$router.push('/MusicPlayer')
 			}
 		}
 	}
@@ -365,5 +374,12 @@
 		background: rgba(52, 52, 52, .5);
 		position: absolute;
 		top: 0rem;
+	}
+	.cataP>img{
+		width: 100%;
+    	height: 100%;
+	}
+	.cataDiv p:first-child{
+		font-size: .5rem;
 	}
 </style>
