@@ -1,14 +1,7 @@
 <template lang="html">
-  <div id="myMusic">
-    <router-view></router-view>
-      <!-- 頭部 -->
-      <div class="header">
-          <ul>
-            <li @click='toggle2=!toggle2'>更多</li>
-            <li>我的音乐</li>
-            <li><i class="iconfont icon-paixingbang"></i></li>
-          </ul>
-      </div>
+  <div id="myMusic" >
+      <router-view></router-view>
+    <div class="innerWrap" @scroll="scrollFn()" ref="innerWrap">
       <!-- 顶部隐藏 -->
       <transition name="fadeDown">
         <div class="titleMoreBox" v-show="toggle2" >
@@ -22,7 +15,15 @@
           <div class="hide" @click="toggle2=false" >
         </div>
         </div>
- </transition>
+      </transition>
+      <!-- 頭部 -->
+      <div class="header">
+        <ul>
+          <li @click='toggle2=!toggle2'>更多</li>
+          <li>我的音乐</li>
+          <li @click="playMusic"><i class="iconfont icon-paixingbang"></i></li>
+        </ul>
+      </div>
       <!-- 頭部列表 -->
       <div class="playBox">
           <div class="PlayList">
@@ -35,7 +36,7 @@
                         <span class="texInfo">本地音乐</span>
                       </div>
                       <div class="infoRight">
-                        <span>num</span>
+                        <span>0 </span>
                         <i class="iconfont icon-houdongfangiconfont24"></i>
                       </div>
                     </div>
@@ -48,7 +49,7 @@
                       <span class="texInfo">最近播放</span>
                     </div>
                     <div class="infoRight">
-                      <span>num</span>
+                      <span>{{num1}}</span>
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
@@ -61,7 +62,7 @@
                       <span class="texInfo">我的电台</span>
                     </div>
                     <div class="infoRight">
-                      <span>num</span>
+                      <span>0</span>
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
@@ -74,7 +75,7 @@
                         <span class="texInfo">我的收藏</span>
                       </div>
                       <div class="infoRight">
-                        <span>num</span>
+                        <span>{{num}}</span>
                         <i class="iconfont icon-houdongfangiconfont24"></i>
                       </div>
                     </div>
@@ -83,15 +84,15 @@
               </div>
           </div>
       </div>
-
       <!-- 收藏的歌单 -->
+      <div class="titleInfo" ref = "titleInfo">
+        <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌曲</span><span class="dataNum">{{num}}</span></p>
+      </div>
+      <!-- 播放列表 -->
       <div class="createPlaylist">
         <div class="PlaylistTitle">
-            <div class="titleInfo">
-              <p @click="toggle1=!toggle1"><i class="iconfont icon-xia1"></i>&nbsp;&nbsp;<span>我收藏的歌曲</span><span class="dataNum">({{num}})</span></p>
-            </div>
 
-            <div class="playListBox" v-show="toggle1" v-for="item in obj">
+            <div class="playListBox" v-show="toggle1" v-for="item in obj" @click="playMusic(item)">
                 <div class="palyListInfo">
 
                     <div class="listInfoLeft">
@@ -107,32 +108,59 @@
         </div>
       </div>
   </div>
+
+  </div>
 </template>
 
 
 <script type="text/javascript">
   import Animate from 'animate.css'
+  // import msg from '../assets/eventBus'
   export default {
   data(){
     return{
         toggle:true,toggle1:true,toggle2:false,
         obj:[],
-        num:""
+        num:"",
+        obj1:[],
+        num1:''
     }
   },
     methods:{
+      playMusic(){
+        this.$router.push({path: '/musicPlayer'})
+      },
+      scrollFn(){
+      console.log(this.$refs.innerWrap.scrollTop);
+      var scrollTop = this.$refs.innerWrap.scrollTop;
+      if (scrollTop > 295){
+        this.$refs.titleInfo.style.position = "fixed";
+        this.$refs.titleInfo.style.top = "1rem";
+      }else if (scrollTop  == 0){
+        this.$refs.titleInfo.style.position = "static";
+
+      }
+
+      }
 
   },
   mounted(){
     this.obj = JSON.parse(localStorage.getItem('collectioned'));
     console.log(this.obj);
-    this.num =this.obj.length;
+    this.num = this.obj.length;
+    this.obj1 = JSON.parse(localStorage.getItem("playedSongs"));
+    console.log(this.obj1);
+    this.num1 = this.obj1.length
+
   }
+
 }
 </script>
 
 
-<style lang="css" sco>
+<style lang="css" scoped>
+.innerWrap{width: 100%;height: 100%;padding-top: 1rem;overflow: auto;}
+
 /*隐藏头部*/
 .titleMoreBox,.more,.hide{width: 100%;}
 .moreList{width: 100%;margin: 0 auto; padding-left: 20px;background: #fff;}
@@ -143,9 +171,9 @@
 .hide{width: 100%;height: 20rem;background: #333;opacity: .6;}
 
 
-#myMusic{font-size: .4rem;position: relative;color:#333;font-weight: 500;}
+#myMusic{overflow: auto;height: 100%;font-size: .4rem;position: relative;color:#333;font-weight: 500;}
 /*頭部樣式*/
-.header{ width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
+.header{ position: fixed;top: 0;width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
 .header ul {width: 100%;height: 100%;overflow: hidden;}
 .header ul li{width: 33%;height: 100%;float: left;line-height: 1.07rem;}
 .header ul li:nth-child(2){font-size: .45rem;text-align: center;}
@@ -163,7 +191,7 @@
 .playInfoItem span{display: inline-block;}
 /*创建歌单*/
 .createPlaylist,.PlaylistTitle,.titleInfo{width: 100%;}
-.titleInfo{height: .8rem;background: #f0f0f0;}
+.titleInfo{height: .8rem;background: #f0f0f0;position: static;}
 .titleInfo p i{font-size: .33rem;}
 .titleInfo p{width: 100%;height: 100%;text-align: left;padding: 0 .33rem;line-height: .8rem;}
 

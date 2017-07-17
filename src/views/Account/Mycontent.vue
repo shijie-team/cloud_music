@@ -101,7 +101,7 @@
 	.mymian>li{width:33.33%;height:1rem;line-height: 1rem;font-size: .45rem;}
 	.mymian>li>a{display: block;}
 	/*.router-link-active{border-bottom: .1rem solid red;color: red;transition: all .3s;}*/
-	.rou{height: 85%;}
+	.rou{height: 84%;}
 	.icon-fenxiang,.icon-dengji{float: right;width: 1rem;font-size: .6rem;}
 	.move{width: 33.3%;height: .15rem;background: green;position:relative;}
 	.move0{left: 0;transition: all .2s;}
