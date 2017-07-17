@@ -174,11 +174,11 @@
 					this.$refs.assr.scrollLeft=0
 					this.$refs.assr.scrollLeft=750
 				}
-				if(this.$refs.assr.scrollLeft <=700){
-					this.$refs.assr.scrollLeft=0
-					this.$refs.assr.scrollLeft=-750
-					
-				}
+//				if(this.$refs.assr.scrollLeft <=700){
+//					this.$refs.assr.scrollLeft=0
+//					this.$refs.assr.scrollLeft=-750
+//					
+//				}
 				
 				if(this.$refs.assr.scrollLeft >= 800){
 					this.$refs.assr.scrollLeft=750

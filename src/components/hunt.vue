@@ -7,17 +7,20 @@
 			</p>
 			<p @click="cancel">取消</p>
 			
-			<ul class="huntUl">
-				<li v-for="intem in url.items" @click="acquire(intem)"><router-link to="">{{intem.title}}</router-link></li>
+			<ul class="huntUl" v-show="isshow">
+				<li v-for="intem in url.items" @click="acquire(intem)">{{intem.title}}</li>
 			</ul>
 		</div>
 		<p class="huntP"><i class="iconfont icon-wode"></i>&nbsp;&nbsp;歌手分类&nbsp;></p>
 		<div class="hot">
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;热门搜索</p>
-			<div class="span">
-				<span v-for="item in hotHunt" @click="huntspan(item)">{{item}}</span>
+			<div class="span" >
+				<span v-for="item in hotHunt" @click="huntspan(item)"><router-link to="/MusicPlayer">{{item}}</router-link></span>
 			</div>
 		</div>
+		<ul class="HuntU">
+			<li v-for="item in obj"><router-link to="/MusicPlayer">{{item.title}}</router-link></li>
+		</ul>
 	</div>
 </template>
 
@@ -30,32 +33,50 @@
 			mus:"",
 			items:[],
 			columnInfoList :[],
-			url:[]
+			url:[],
+			isshow:false,
+			obj:''
 		}
 
 	},
 	methods:{
 		acquire:function(cc){
-			localStorage.setItem('columnInfoList', JSON.stringify(cc));
+			this.nameSong(cc)
+			var acq=[]
+			acq.push(cc);
+			this.isshow=false;
+			localStorage.setItem('playedSongs', JSON.stringify(acq));	
+		},
+		nameSong:function(aff){
+			this.obj = JSON.parse(localStorage.getItem('collectioned'));
+				if(this.obj) {
+					for(var i = 0; i < this.obj.length; i++) {
+						if(this.obj[i].title === aff.title) {
+							this.obj.splice(i,1)
+						}
+					}
+				} else {
+					this.obj = [];
+				}
+				this.obj.push(aff)
+				localStorage.setItem('collectioned',JSON.stringify(this.obj))
 		},
 		cancel:function(){
 			history.go(-1);
 		},
 		huntmus:function(){
 			this.demonstrate(this.mus)
-			//console.log(this.mus)
-			//this.columnInfoList=localStorage.setItem('columnInfoList',this.mus)
+			this.isshow=true
+			
 		},
 		demonstrate:function(arr){
 			var sel=this
-			console.log(localStorage.getItem(this.columnInfoList))
 			this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
 						sel.items = res.body
 						for(var i = 0; i < sel.items.length; i++) {
 							for(var j = 0; j < sel.items[i].items.length; j++) {
 								if(sel.items[i].items[j].url) {
 									sel.url = sel.items[i]
-									console.log(sel.url )
 								}
 								break;
 							}
@@ -163,5 +184,14 @@
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
+	}
+	.HuntU{
+		width: 100%;
+		height: 20%;
+		font-size: .4rem;
+	}
+	.HuntU>li{
+		text-indent: .3rem;
+		line-height: 1rem;
 	}
 </style>

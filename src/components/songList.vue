@@ -12,14 +12,14 @@
 		<div class="fistsong" v-bind:class="{ active: isfistsong}">
 			<p class="fistP"><i class="iconfont icon-diantaibaoshe"></i></p>
 			<div class="fistDiv">
-				<p @click="backAll">播放全部</p>
+				<p @click="backAll"><router-link to="/MusicPlayer">播放全部</router-link></p>
 				<p><i class="iconfont icon-ranking"></i>多选</p>
 			</div>
 
 		</div>
 		<ul class="songUl">
 			<li class="songMenu clearfix" v-for="item in url.items">
-				<p class="songP" v-on:click="songPlay(item)"><i class="iconfont icon-bofang-copy"></i></p>
+				<p class="songP" v-on:click="songPlay(item)"><router-link to="/MusicPlayer"><i class="iconfont icon-bofang-copy"></i></router-link></p>
 				<div class='clearfix sonDiv'>
 					<div class="songName">
 						<p>{{item.title}}</p>
@@ -115,7 +115,8 @@
 			songPlay: function(arr) {
 				var columnInfoList = [];
 				columnInfoList.push(arr);
-				localStorage.setItem('columnInfoList', JSON.stringify(columnInfoList));
+				localStorage.setItem('playedSongs', JSON.stringify(columnInfoList));
+				console.log(JSON.parse(localStorage.getItem('playedSongs')))
 			},
 			more: function(item) {
 				this.item = item;
@@ -140,10 +141,9 @@
 				}
 				this.obj.push(this.item)
 				localStorage.setItem('collectioned',JSON.stringify(this.obj))
-        console.log(this.obj);
 			},
 			backAll:function(){
-				localStorage.setItem('columnInfoList',JSON.stringify(this.url.items))
+				localStorage.setItem('playedSongs',JSON.stringify(this.url.items))
 			}
 		}
 	}
