@@ -10,7 +10,7 @@
   <div class="navBox">
       <div class="nav">
           <ul class="navList">
-            <li>专辑</li>
+            <li @click="songList">歌曲</li>
             <li>歌手</li>
             <li>MV</li>
             <li>专栏</li>
@@ -18,6 +18,19 @@
       </div>
   </div>
   <Search></Search>
+
+  <div class="palyListInfo" v-for="item in obj">
+
+      <div class="listInfoLeft">
+        <img :src="item.picture" alt="">
+      </div>
+
+      <div class="listInfoRight">
+          <p class="listInfoRightTil">{{item.albumtitle}}</p>
+          <span>{{item.artist_name}}</span>
+      </div>
+  </div>
+
 </div>
 </template>
 
@@ -26,7 +39,9 @@ import Search from '../components/Search.vue'
 
 export default {
   data(){
-    return{}
+    return{
+      obj:[]
+    }
   },
   components:{
     Search
@@ -34,7 +49,15 @@ export default {
   methods:{
     goback(){
       this.$router.push({path: '/MyMusic'});
+    },
+    songList(){
+
     }
+
+  },
+  mounted:function(){
+  this.obj = JSON.parse(localStorage.getItem('collectioned'));
+  console.log(this.obj);
   }
 }
 </script>
@@ -53,5 +76,9 @@ export default {
 .navList{height: 1rem;background: #fffff1;}
 .navList li{width: 25%;float: left;line-height: 1rem;text-align: center;}
 
-
+.palyListInfo{padding:.23rem;}
+.palyListInfo{width: 100%;height: 1.6rem;}
+.listInfoLeft{width: 17%;float: left;height: 100%;}
+.listInfoRight{width: 83%;float: right;;text-align: left;height: 100%;border-bottom: 1px solid #ccc}
+.listInfoLeft img{width: 1.2rem;}
 </style>
