@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="myMusic">
-
+    <router-view></router-view>
       <!-- 頭部 -->
       <div class="header">
           <ul>
@@ -10,34 +10,38 @@
           </ul>
       </div>
       <!-- 顶部隐藏 -->
-      <div class="titleMoreBox" v-show="toggle2" >
-          <div class="more animated" transition="bounce">
-                <ul class="moreList">
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-unie644"></i></span>&nbsp;&nbsp;<span>新建歌单</span></li>
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-paixingbang"></i></span>&nbsp;&nbsp;<span>管理歌单</span></li>
-                  <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-gengduo_tinggemianliuliang_"></i></span>&nbsp;&nbsp;<span>我的音乐云盘</span></li>
-                </ul>
+      <transition name="fadeDown">
+        <div class="titleMoreBox" v-show="toggle2" >
+          <div class="more">
+            <ul class="moreList">
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-unie644"></i></span>&nbsp;&nbsp;<span>新建歌单</span></li>
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-paixingbang"></i></span>&nbsp;&nbsp;<span>管理歌单</span></li>
+              <li class="moreInfo"><span class="moreInfoLeft"><i class="iconfont icon-gengduo_tinggemianliuliang_"></i></span>&nbsp;&nbsp;<span>我的音乐云盘</span></li>
+            </ul>
           </div>
-          <div class="hide" @click="toggle2=false">
-
-          </div>
-      </div>
+          <div class="hide" @click="toggle2=false" >
+        </div>
+        </div>
+ </transition>
       <!-- 頭部列表 -->
       <div class="playBox">
           <div class="PlayList">
               <div class="PlayListInfo">
                   <!-- 本地音乐 -->
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-mianxingtubiaoyinle"></i>
-                      <span class="texInfo">本地音乐</span>
+                  <router-link to="LocalMusic">
+                    <div class="playInfoItem">
+                      <div class="infoLeft">
+                        <i class="iconfont icon-mianxingtubiaoyinle"></i>
+                        <span class="texInfo">本地音乐</span>
+                      </div>
+                      <div class="infoRight">
+                        <span>num</span>
+                        <i class="iconfont icon-houdongfangiconfont24"></i>
+                      </div>
                     </div>
-                    <div class="infoRight">
-                      <span>num</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
+                  </router-link>
                   <!-- 最近播放 -->
+                  <router-link to="RecentPlay">
                   <div class="playInfoItem">
                     <div class="infoLeft">
                       <i class="iconfont icon-bofang-copy"></i>
@@ -48,7 +52,9 @@
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
+                  </router-link>
                   <!-- 我的电台 -->
+                  <router-link to="MyFm">
                   <div class="playInfoItem">
                     <div class="infoLeft">
                       <i class="iconfont icon-diantaibaoshe"></i>
@@ -59,17 +65,21 @@
                       <i class="iconfont icon-houdongfangiconfont24"></i>
                     </div>
                   </div>
+                  </router-link>
                   <!-- 我的收藏 -->
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-wodeshoucang"></i>
-                      <span class="texInfo">我的收藏</span>
+                  <router-link to="MyCollection">
+                    <div class="playInfoItem">
+                      <div class="infoLeft">
+                        <i class="iconfont icon-wodeshoucang"></i>
+                        <span class="texInfo">我的收藏</span>
+                      </div>
+                      <div class="infoRight">
+                        <span>num</span>
+                        <i class="iconfont icon-houdongfangiconfont24"></i>
+                      </div>
                     </div>
-                    <div class="infoRight">
-                      <span>num</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
+                  </router-link>
+
               </div>
           </div>
       </div>
@@ -82,7 +92,6 @@
 
             <div class="playListBox" v-show="toggle">
                 <div class="palyListInfo">
-
                     <div class="listInfoLeft">
                       <img src="http://img2.imgtn.bdimg.com/it/u=544849495,3489965439&fm=214&gp=0.jpg" alt="">
                     </div>
@@ -166,8 +175,9 @@
 
 
 <script type="text/javascript">
-  import animate from 'animate.css'
-  console.log(animate);
+
+  import Animate from 'animate.css'
+  console.log(Animate);
   export default {
   name:'myMusic',
   data(){
@@ -178,20 +188,12 @@
     methods:{
 
   }
-  ,transitions:{
-    bounce:{
-      enterClass:'bounceInLeft',
-      leaveClass:'bounceOutRight'
-    }
-  }
 }
 </script>
 
 
-<style lang="css">
+<style lang="css" sco>
 /*隐藏头部*/
-
-
 .titleMoreBox,.more,.hide{width: 100%;}
 .moreList{width: 100%;margin: 0 auto; padding-left: 20px;background: #fff;}
 .moreList .moreInfo{width: 100%;text-align: left;height: 1rem; border-bottom: 1px solid #ccc}
@@ -206,7 +208,7 @@
 .header{ width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
 .header ul {width: 100%;height: 100%;overflow: hidden;}
 .header ul li{width: 33%;height: 100%;float: left;line-height: 1.07rem;}
-.header ul li:nth-child(2){font-size: .45rem;}
+.header ul li:nth-child(2){font-size: .45rem;text-align: center;}
 .header ul li:first-child{text-align: left;padding-left: .33rem;}
 .header ul li:last-child{text-align: right;padding-right: .33rem;}
 .iconfont{font-size: .6rem}
@@ -230,4 +232,11 @@
 .listInfoLeft{width: 17%;float: left;height: 100%;}
 .listInfoRight{width: 83%;float: right;;text-align: left;height: 100%;border-bottom: 1px solid #ccc}
 .listInfoLeft img{width: 1.2rem;}
+
+.fadeDown-enter-active, .fadeDown-leave-active {
+  transition: opacity .3s
+}
+.fadeDown-enter, .fadeDown-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
 </style>
