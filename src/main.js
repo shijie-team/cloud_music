@@ -31,6 +31,9 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
+import Member from './views/Account/member'
+import free from './views/Account/free'
+import shop from './views/Account/shop'
 import Hunt from './components/hunt'
 Vue.config.productionTip = false
 
@@ -39,8 +42,9 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
+  // {path:'*',redirect:'/musicPlayer'},
+  {path:'/musicPlayer',component:MusicPlayer},
   {path:'*',redirect:'/findMusic'},
-  {path:'*',redirect:'/musicPlayer'},
   {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
@@ -59,6 +63,9 @@ const routes = [
   ]},
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter},
+  {path:'/member',component:Member},
+  {path:'/free',component:free},
+  {path:'/shop',component:shop},
   {path:'/localMusic',component:LocalMusic,children:[
     {path:'/',redirect:"single"},
     {path:'single',component:Single,children:[
