@@ -34,7 +34,7 @@
 				<div class="findLonghair">
 					<p class="findType"><span></span>艺术家</p>
 					<ul class="findArtist">
-						<li v-for="item in artist" v-on:click="scene(item.id,item)">
+						<li v-for="item in artist" v-on:click="scen(item.id,item)">
 							<p><img :src='item.banner' /></p>
 							<p>{{item.name}}</p>
 						</li>
@@ -165,15 +165,14 @@
 				})
 			},
 			Scr:function(event){
-				console.log(this.$refs.assr.scrollLeft)
+				console.log(11111,this.$refs.assr.scrollLeft)
 				this.$refs.findsong.style.display = 'block';
 				this.$refs.findHost.style.display = 'block';
 				this.$refs.findStation.style.display = "block";
 				this.$refs.songRanking.style.display = "block";
-				if(this.$refs.assr.scrollLeft >= 100){
+				if(this.$refs.assr.scrollLeft <= 300){
 					this.$refs.assr.scrollLeft=0
-					this.$refs.assr.scrollLeft=750
-				}
+				} 
 //				if(this.$refs.assr.scrollLeft <=700){
 //					this.$refs.assr.scrollLeft=0
 //					this.$refs.assr.scrollLeft=-750

@@ -280,6 +280,7 @@ export default {
   mounted(){
     var songOjb = JSON.parse(localStorage.getItem('singleSong'));
     localStorage.removeItem('singleSong');
+    console.log(songOjb)
     this.getSongs(songOjb);
     clearInterval(this.checkTimer);
     this.checkTimer = setInterval(this.checkPlayStatus,20);
