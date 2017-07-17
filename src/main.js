@@ -29,6 +29,9 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
+import Member from './views/Account/member'
+import free from './views/Account/free'
+import shop from './views/Account/shop'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -54,6 +57,9 @@ const routes = [
   ]},
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter},
+  {path:'/member',component:Member},
+  {path:'/free',component:free},
+  {path:'/shop',component:shop},
   {path:'/localMusic',component:LocalMusic,children:[
     {path:'/',component:Single},
     {path:'single',component:Single,children:[
