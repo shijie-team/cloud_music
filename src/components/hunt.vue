@@ -8,7 +8,7 @@
 			<p @click="cancel">取消</p>
 			
 			<ul class="huntUl">
-				<li v-for="intem in url.items" @click="acquire(intem)">{{intem.title}}</li>
+				<li v-for="intem in url.items" @click="acquire(intem)"><router-link to="">{{intem.title}}</router-link></li>
 			</ul>
 		</div>
 		<p class="huntP"><i class="iconfont icon-wode"></i>&nbsp;&nbsp;歌手分类&nbsp;></p>
@@ -37,7 +37,6 @@
 	methods:{
 		acquire:function(cc){
 			localStorage.setItem('columnInfoList', JSON.stringify(cc));
-			console.log(JSON.parse(localStorage.getItem("columnInfoList")))
 		},
 		cancel:function(){
 			history.go(-1);
