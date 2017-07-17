@@ -31,6 +31,7 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
+import Hunt from './components/hunt'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -73,7 +74,8 @@ const routes = [
   {path:'/recentPlay',component:RecentPlay},
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
-	{path:'/songList',component:SongList}
+	{path:'/songList',component:SongList},
+	{path:'/hunt',component:Hunt}
 ]
 const router = new VueRouter({
   routes:routes
