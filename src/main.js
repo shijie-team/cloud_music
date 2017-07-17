@@ -38,9 +38,9 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
-  {path:'*',redirect:'/musicPlayer'},
+  // {path:'*',redirect:'/musicPlayer'},
   {path:'/musicPlayer',component:MusicPlayer},
-  // {path:'*',redirect:'/findMusic'},
+  {path:'*',redirect:'/findMusic'},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
   {path:'/news',component:News},
