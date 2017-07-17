@@ -4,31 +4,37 @@
       <ul>
         <li @click="goback"><i class="iconfont icon-shang-copy-copy"></i></li>
         <li>我的收藏</li>
-        <li><i class="iconfont icon-paixingbang"></i></li>
+        <li @click="playMusic"><i class="iconfont icon-paixingbang"></i></li>
       </ul>
   </div>
-  <div class="navBox">
+  <div class="myCollectionInnerBox">
+
+    <div class="navBox">
       <div class="nav">
-          <ul class="navList">
-            <li @click="songList">歌曲</li>
-            <li>歌手</li>
-            <li>MV</li>
-            <li>专栏</li>
-          </ul>
+        <ul class="navList">
+          <li>歌曲</li>
+          <li>歌手</li>
+          <li>MV</li>
+          <li>专栏</li>
+        </ul>
       </div>
+    </div>
+    <Search :title="searchTitle" @searchInput="changeArr"></Search>
+
+    <div class="palyListInfo" v-for="item in obj"
+    @click="playMusic(item)" v-if="item.albumtitle.toLowerCase().indexOf(keyWord.toLowerCase())!==-1">
+
+    <div class="listInfoLeft">
+      <img :src="item.picture" alt="">
+    </div>
+
+    <div class="listInfoRight">
+      <p class="listInfoRightTil">{{item.albumtitle}}</p>
+      <span>{{item.artist_name}}</span>
+
+    </div>
+
   </div>
-  <Search></Search>
-
-  <div class="palyListInfo" v-for="item in obj">
-
-      <div class="listInfoLeft">
-        <img :src="item.picture" alt="">
-      </div>
-
-      <div class="listInfoRight">
-          <p class="listInfoRightTil">{{item.albumtitle}}</p>
-          <span>{{item.artist_name}}</span>
-      </div>
   </div>
 
 </div>
@@ -40,31 +46,48 @@ import Search from '../components/Search.vue'
 export default {
   data(){
     return{
-      obj:[]
+      obj:[],
+      getKeyWord:'',
+      searchTitle:"搜索收藏的歌曲"
+
     }
   },
   components:{
     Search
   },
+  computed:{
+      keyWord:function(){
+      return this.getKeyWord
+      }
+  },
   methods:{
     goback(){
       this.$router.push({path: '/MyMusic'});
     },
-    songList(){
-
+    playMusic(singleSong){
+        localStorage.setItem('singleSong',JSON.stringify(singleSong));
+        this.$router.push({path: '/musicPlayer'})
+    },
+    changeArr(val){
+        console.log(val);
+        console.log(this.obj);
+        this.getKeyWord = val;
     }
 
   },
   mounted:function(){
   this.obj = JSON.parse(localStorage.getItem('collectioned'));
   console.log(this.obj);
+
   }
 }
 </script>
 
 <style lang="css" scoped>
 .myCollection{width: 100%;font-size: .4rem;}
-.header{ width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
+
+.myCollection{width: 100%;height: 100%;overflow: auto;}
+.header{ position: fixed;top: 0;width: 100%;height: 1.07rem;background: #333;color: #f0f0f0;font-weight: 800;}
 .header ul {width: 100%;height: 100%;overflow: hidden;}
 .header ul li{width: 33%;height: 100%;float: left;line-height: 1.07rem;}
 .header ul li:nth-child(2){font-size: .45rem;text-align: center;}

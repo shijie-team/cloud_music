@@ -31,6 +31,8 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
+import RecentPlay2 from './views/RecentPlay2'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -38,8 +40,8 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
-  {path:'*',redirect:'/findMusic'},
-  {path:'*',redirect:'/musicPlayer'},
+  // {path:'*',redirect:'/findMusic'},
+  // {path:'*',redirect:'/musicPlayer'},
   {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
@@ -72,7 +74,8 @@ const routes = [
   {path:'/recentPlay',component:RecentPlay},
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
-	{path:'/songList',component:SongList}
+	{path:'/songList',component:SongList},
+  {path:'/recentPlay2',component:RecentPlay2}
 ]
 const router = new VueRouter({
   routes:routes

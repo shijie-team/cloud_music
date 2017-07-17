@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="mv">
-        <Search></Search>
+        <Search :title="searchTitle"></Search>
 
         <div class="programTitle">
             <ul class="titleInfo">
@@ -27,7 +27,9 @@
 import Search from '../components/Search.vue'
 export default {
   data(){
-    return{}
+    return{
+      searchTitle:'搜索本地MV'
+    }
   },
   components:{
     Search

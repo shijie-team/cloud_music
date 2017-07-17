@@ -1,11 +1,28 @@
 <template lang="html">
   <div class="search">
-      <input type="text" placeholder="搜索本地歌曲" class="searchIput">
+      <input type="text" :placeholder="title" class="searchIput" @input="searchInput" ref="searchRef">
   </div>
 </template>
 
 <script>
 export default {
+
+  methods:{
+    searchInput(){
+      var inputVal = this.$refs.searchRef.value;
+      console.log(inputVal);
+      this.$emit('searchInput', inputVal);
+    }
+  },
+  props:{
+      title:{
+        type:String,
+        default:function(){
+          return "搜索本地歌曲"
+        }
+      }
+  },
+
 }
 </script>
 
