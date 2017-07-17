@@ -84,14 +84,17 @@ export default {
     }
   },
   methods:{
+    setCurrentSongIndex(index){
+      this.$store.dispatch('setSelectedSongIndex',index);
+    },
     setPlayedSong(songObj){
       var playedSongs = JSON.parse(localStorage.getItem('playedSongs'));
       if(playedSongs){
         this.playedSongs = playedSongs;
       }
       var index = this.getSongIndex(this.playedSongs,songObj);
-      if(index || index ==0){
-        this.playedSongs.splice(index,1);
+      if(index || index ===0){
+        var obj = this.playedSongs.splice(index,1);
       }
       this.playedSongs.unshift(songObj);
       localStorage.setItem('playedSongs',JSON.stringify(this.playedSongs));
@@ -152,22 +155,27 @@ export default {
     changeSongs(){
       if(this.playStateIndex === 0){ //顺序播放
       } else if(this.playStateIndex === 1){ //循环单曲
-        --this.currentSongIndex;
+        var index = this.currentSongIndex -1;
+        this.setCurrentSongIndex(index)
       } else if(this.playStateIndex === 2){//随机播放
-          this.currentSongIndex = Math.floor(Math.random()*this.songs.length)-1;
+            this.setCurrentSongIndex(Math.floor(Math.random()*this.songs.length)-1)
       }
       this.playNextSong();
     },
     playPrevSong(){
         this.clickEfect(this.$refs.preBtn)
       this.$refs.audio.pause();
-      var songObj = this.songs[--this.currentSongIndex < 0 ? this.songs.length -1 : this.currentSongIndex];
+      var index = this.currentSongIndex -1;
+      this.setCurrentSongIndex(index  < 0 ? this.songs.length -1 : index);
+      var songObj = this.songs[this.currentSongIndex];
       this.initSongData(songObj);
     },
     playNextSong(){
         this.clickEfect(this.$refs.nextBtn)
       this.$refs.audio.pause();
-      var songObj = this.songs[++this.currentSongIndex > this.songs.length-1 ? 0 : this.currentSongIndex];
+      var index = this.currentSongIndex+1;
+      this.setCurrentSongIndex( index > this.songs.length-1 ? 0 : index)
+      var songObj = this.songs[this.currentSongIndex];
       this.initSongData(songObj);
     },
     changePlayState(){
@@ -186,10 +194,10 @@ export default {
       }
       if(songObj){
         if(this.getSongIndex(this.songs,songObj) || this.getSongIndex(this.songs,songObj) === 0){
-              this.currentSongIndex = this.getSongIndex(this.songs,songObj);
+              this.setCurrentSongIndex(this.getSongIndex(this.songs,songObj));
         } else {
               this.songs.unshift(songObj);
-              this.currentSongIndex = 0;
+                this.setCurrentSongIndex(0);
         }
       }
         this.initSongData(this.songs[this.currentSongIndex]);
@@ -221,8 +229,6 @@ export default {
       } else {
         this.isCollected = ''
       };
-
-      this.currentSong = songObj;
       this.songsName = songObj.title;
       this.author = songObj.artist_name;
       this.songImg = songObj.cover;
