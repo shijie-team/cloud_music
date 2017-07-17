@@ -9,6 +9,7 @@ import MyMusic from './views/MyMusic'
 import News from './views/News'
 import Account from './views/Account'
 import MusicPlayer from './views/MusicPlayer'
+import store from './store'
 import SongList from './components/songList'
 
 Vue.config.productionTip = false
@@ -33,5 +34,6 @@ new Vue({
   el: '#app',
   template: '<App/>',
   components: { App },
-  router:router
+  router:router,
+  store
 })
