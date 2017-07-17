@@ -19,7 +19,7 @@
 		</div>
 		<ul class="songUl">
 			<li class="songMenu clearfix" v-for="item in url.items">
-				<p class="songP" v-on:click="songPlay(item)"><router-link to="/MusicPlayer"><i class="iconfont icon-bofang-copy"></i></router-link></p>
+				<p class="songP" v-on:click="songPlay(item)"><i class="iconfont icon-bofang-copy"></i></p>
 				<div class='clearfix sonDiv'>
 					<div class="songName">
 						<p>{{item.title}}</p>
@@ -89,6 +89,7 @@
 				self.ass = ass;
 				self.$http.get('https://douban.fm/j/v2/playlist?channel=' + (self.msg) + '&kbps=192&client=s%3Amainsite%7Cy%3A3.0&app_name=radio_website&version=100&type=n').then(function(res) {
 					self.title = res.body.song[0].title;
+//					songC(self.title)
 					self.$http.get('https://douban.fm/j/v2/query/all?q=' + (self.title) + '&start=0&limit=all').then(function(res) {
 						self.items = res.body
 						for(var i = 0; i < self.items.length; i++) {
@@ -104,7 +105,19 @@
 			});
 		},
 		methods: {
-
+//			songC:function(arr){
+//				this.$http.get('https://douban.fm/j/v2/query/all?q=' + arr + '&start=0&limit=all').then(function(res) {
+//						this.items = res.body
+//						for(var i = 0; i < this.items.length; i++) {
+//							for(var j = 0; j < this.items[i].items.length; j++) {
+//								if(this.items[i].items[j].url) {
+//									this.url = this.items[i]
+//								}
+//								break;
+//							}
+//						}
+//					})
+//			},
 			Scro: function(event) {
 				if(this.$refs.songList.scrollTop >= 375) {
 					this.isfistsong = true;
@@ -112,11 +125,11 @@
 					this.isfistsong = false;
 				}
 			},
-			songPlay: function(arr) {
+			songPlay: function(obj) {
 				var columnInfoList = [];
-				columnInfoList.push(arr);
-				localStorage.setItem('playedSongs', JSON.stringify(columnInfoList));
-				console.log(JSON.parse(localStorage.getItem('playedSongs')))
+				columnInfoList.push(obj);
+				localStorage.setItem('singleSong', JSON.stringify(obj));
+				this.$router.push('/MusicPlayer')
 			},
 			more: function(item) {
 				this.item = item;
