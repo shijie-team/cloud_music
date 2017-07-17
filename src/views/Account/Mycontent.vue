@@ -22,10 +22,13 @@
 				</router-link>
 			</div>
 			<ul class="mymian">
-				<li><router-link to='/mycontent/childmusic'>音乐</router-link></li>
-				<li><router-link to='/mycontent/childstate'>动态</router-link></li>
-				<li><router-link to='/mycontent/childmynews'>关于我</router-link></li>
+				<li @click='change()'>音乐</li>
+				<li @click='change1()'>动态</li>
+				<li @click='change2()'>关于我</li>
 			</ul>
+			<div class="move" :class="[moveA]" >
+				
+			</div>
 			<div class="rou">
 				<router-view></router-view>
 			</div>
@@ -37,13 +40,14 @@
 </template>
 
 <script>
+	
 	export default{
 		name:'mycontent',
 		data(){
 			return {
 				title:false,
-				myname:''
-				
+				myname:'',
+				moveA:'move0'	
 			}
 		},
 		methods:{
@@ -56,6 +60,18 @@
 				}else{
 					this.title=false
 				}
+			},
+			change(){
+				this.moveA='move0';
+				this.$router.push({path:'/mycontent/childmusic'});
+			},
+			change1(){
+				this.moveA='move1';
+				this.$router.push({path:'/mycontent/childstate'});
+			},
+			change2(){
+				this.moveA='move2';
+				this.$router.push({path:'/mycontent/childmynews'});
 			}
 		},
 		beforeMount(){
@@ -84,7 +100,11 @@
 	.mymian{display: flex;justify-content: space-around;height: 6.5%;}
 	.mymian>li{width:33.33%;height:1rem;line-height: 1rem;font-size: .45rem;}
 	.mymian>li>a{display: block;}
-	.router-link-active{border-bottom: .1rem solid red;color: red;transition: all .3s;}
+	/*.router-link-active{border-bottom: .1rem solid red;color: red;transition: all .3s;}*/
 	.rou{height: 85%;}
 	.icon-fenxiang,.icon-dengji{float: right;width: 1rem;font-size: .6rem;}
+	.move{width: 33.3%;height: .15rem;background: green;position:relative;}
+	.move0{left: 0;transition: all .2s;}
+	.move1{left: 33.3%;transition: all .2s;}
+	.move2{left: 66.6%;transition: all .2s;}
 </style>

@@ -31,8 +31,15 @@ import Songs from './views/singleViews/Songs.vue'
 import Singer from './views/singleViews/Singer.vue'
 import Special from './views/singleViews/Special.vue'
 import SongList from './components/songList'
+<<<<<<< HEAD
 import RecentPlay2 from './views/RecentPlay2'
 
+=======
+import Member from './views/Account/member'
+import free from './views/Account/free'
+import shop from './views/Account/shop'
+import Hunt from './components/hunt'
+>>>>>>> 7b37ba0fc5c321e0c4c98a5df46f1bd63066e206
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -40,8 +47,14 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
+<<<<<<< HEAD
   // {path:'*',redirect:'/findMusic'},
   // {path:'*',redirect:'/musicPlayer'},
+=======
+  // {path:'*',redirect:'/musicPlayer'},
+  {path:'/musicPlayer',component:MusicPlayer},
+  {path:'*',redirect:'/findMusic'},
+>>>>>>> 7b37ba0fc5c321e0c4c98a5df46f1bd63066e206
   {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
@@ -60,6 +73,9 @@ const routes = [
   ]},
   {path:'/mynews',component:Mynews},
   {path:'/enter',component:Enter},
+  {path:'/member',component:Member},
+  {path:'/free',component:free},
+  {path:'/shop',component:shop},
   {path:'/localMusic',component:LocalMusic,children:[
     {path:'/',redirect:"single"},
     {path:'single',component:Single,children:[
@@ -75,7 +91,11 @@ const routes = [
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
 	{path:'/songList',component:SongList},
+<<<<<<< HEAD
   {path:'/recentPlay2',component:RecentPlay2}
+=======
+	{path:'/hunt',component:Hunt}
+>>>>>>> 7b37ba0fc5c321e0c4c98a5df46f1bd63066e206
 ]
 const router = new VueRouter({
   routes:routes

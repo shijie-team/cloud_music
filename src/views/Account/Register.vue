@@ -71,6 +71,12 @@ export default {
 			if(!arr){
 				var arr=[];
 			}
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].username==this.iphone){
+					alert('你早就注册啦');
+					return false;
+				}
+			}
 			arr.unshift(obj1);
 			localStorage.setItem('user',JSON.stringify(arr));
 			console.log(JSON.parse(localStorage.getItem('user')),arr);

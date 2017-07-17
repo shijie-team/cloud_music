@@ -33,19 +33,25 @@
 			</div>
 			<div class="member">
 				<li>
-					<i class="iconfont icon-icon_huiyuanbiaozhi"></i>
-					<span>会员中心</span>
-					<i class="iconfont icon-houdongfangiconfont24"></i>
+					<router-link to='/member'>
+						<i class="iconfont icon-icon_huiyuanbiaozhi"></i>
+						<span>会员中心</span>
+						<i class="iconfont icon-houdongfangiconfont24"></i>
+					</router-link>
 				</li>
 				<li>
-					<i class="iconfont icon-shangcheng"></i>
-					<span>商城</span>
-					<i class="iconfont icon-houdongfangiconfont24"></i>
+					<router-link to='/shop'>
+						<i class="iconfont icon-shangcheng"></i>
+						<span>商城</span>
+						<i class="iconfont icon-houdongfangiconfont24"></i>
+					</router-link>
 				</li>
 				<li>
-					<i class="iconfont icon-qiandao1"></i>
-					<span>在线听歌免流量</span>
-					<i class="iconfont icon-houdongfangiconfont24"></i>
+					<router-link to='/free'>
+						<i class="iconfont icon-qiandao1"></i>
+						<span>在线听歌免流量</span>
+						<i class="iconfont icon-houdongfangiconfont24"></i>
+					</router-link>
 				</li>
 			</div>
 			<div class="seting">
@@ -157,9 +163,9 @@ export default {
 	.mynews{background: white;height: 1.2rem;line-height: 1.2rem;}
 	.content{text-align: left;}
 	.content>div{padding-left:.3rem;margin-top: .3rem;background: white;}
-	.content>div>li{border-bottom:1px solid lightgray;height: 1rem;line-height: 1rem;margin-left: .7rem;}
-	.content>div>li>i{margin-left: -.7rem;}
-	.content>div>li>i:nth-last-child(1){display: inline-block;width: .7rem;}
+	.content>div li{border-bottom:1px solid lightgray;height: 1rem;line-height: 1rem;margin-left: .7rem;}
+	.content>div li i{margin-left: -.7rem;}
+	.content>div li>i:nth-last-child(1){display: inline-block;width: .7rem;}
 	.icon-houdongfangiconfont24{float: right;font-size: .5rem;color: lightgrey;}
 	.quit{text-align: center;height: 1.5rem;line-height: 1.5rem;color: red;}
 </style>
