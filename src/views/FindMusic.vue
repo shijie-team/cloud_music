@@ -34,9 +34,11 @@
 				<div class="findLonghair">
 					<p class="findType"><span></span>艺术家</p>
 					<ul class="findArtist">
-						<li v-for="item in artist" v-on:click="scen(item.id,item)">
+						<li v-for="item in artist" v-on:click="scen(item)">
+							<router-link to="/songList">
 							<p><img :src='item.banner' /></p>
 							<p>{{item.name}}</p>
+							</router-link>
 						</li>
 					</ul>
 				</div>
@@ -151,21 +153,14 @@
 				this.fashion = res.body
 				this.common(this.fashion)
 			});
-			//			this.$http.get('https://douban.fm/j/v2/query/all?q=' + '小说' + '&start=0&limit=all').then(function(res) {
-			//				this.novel=res.body[1].items
-			//				console.log(this.novel)
-			//			});
 		},
 		methods: {
 			packaging: function(designation) {
-				console.log(designation)
 				this.$http.get('https://douban.fm/j/v2/query/all?q=' + designation + '&start=0&limit=all').then(function(res) {
 					this.common(res.body)
-					console.log(res)
 				})
 			},
 			Scr:function(event){
-				console.log(11111,this.$refs.assr.scrollLeft)
 				this.$refs.findsong.style.display = 'block';
 				this.$refs.findHost.style.display = 'block';
 				this.$refs.findStation.style.display = "block";
@@ -173,20 +168,11 @@
 				if(this.$refs.assr.scrollLeft <= 300){
 					this.$refs.assr.scrollLeft=0
 				} 
-//				if(this.$refs.assr.scrollLeft <=700){
-//					this.$refs.assr.scrollLeft=0
-//					this.$refs.assr.scrollLeft=-750
-//					
-//				}
 				
 				if(this.$refs.assr.scrollLeft >= 800){
 					this.$refs.assr.scrollLeft=750
 					this.$refs.assr.scrollLeft=1500
 				}
-//				if(this.$refs.assr.scrollLeft >= 2550){
-//					this.$refs.assr.scrollLeft=2250
-//					this.$refs.assr.scrollLeft=3000
-//				}
 			},
 			common: function(pan) {
 				for(var i = 0; i < pan.length; i++) {
@@ -244,6 +230,9 @@
 				this.songId = id
 				this.songAss = ass
 				li.$emit("userDefinedEvent", this.songId, this.songAss);
+			},
+			scen:function(item){
+				li.$emit("userDefined", item);
 			},
 			chinese: function(aa) {
 				this.vname = aa
