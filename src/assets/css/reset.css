@@ -19,7 +19,7 @@ body,html{
     height :100%;
     width:100%;
 }
-.clearfix:atfter{
+.clearfix:after{
     content: '';
     display: block;
     height: 0;
