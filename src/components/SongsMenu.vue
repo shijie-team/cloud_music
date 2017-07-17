@@ -3,12 +3,13 @@
     <div class="menu">
       <p><i class="iconfont icon-cuo" @click='close'></i></p>
       <ul>
-        <li @click ='getSong(v,i)' v-for='(v,i) in songs'>{{v.title}}----{{v.artist_name}}</li>
+        <li @click ='getSong(v,i)' v-for='(v,i) in songs' :class="selectedSongIndex == i ?  'choosen' : ''">{{v.title}}----{{v.artist_name}}</li>
       </ul>
     </div>
   </div>
 </template>
 <style scoped>
+.choosen{background: rgba(0,0,0,0.3)}
 .songsMenu{width: 100%;height: 100%;background: rgba(0,0,0,0.5);position: fixed;left:0;top: 0;}
 .menu{width: 100%;height: 80%;padding: 0.4rem /* 30/75 */;padding-bottom: 0;position: absolute;bottom: 0;left: 0;}
 .menu p{width: 100%;height: 10%;}
@@ -32,13 +33,19 @@ export default{
       return this.$store.state.selectedSongIndex;
     }
   },
+  mounted(){
+  },
   methods:{
     getSong(v,i){
-      this.clickIndex = i;
-      this.$store.dispatch('setSongsList',i);
+      this.selectedSongIndex = i;
+      this.$store.dispatch('setSelectedSongIndex',i);
+      this.changeSong();
     },
     close(){
       this.$store.dispatch('showMenu',false);
+    },
+    changeSong(){
+      this.$emit('changeCurrenSong',this.selectedSongIndex)
     }
   }
 }
