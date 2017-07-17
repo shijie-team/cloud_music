@@ -34,6 +34,7 @@ import SongList from './components/songList'
 import Member from './views/Account/member'
 import free from './views/Account/free'
 import shop from './views/Account/shop'
+import Hunt from './components/hunt'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -41,8 +42,9 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 const routes = [
+  // {path:'*',redirect:'/musicPlayer'},
+  {path:'/musicPlayer',component:MusicPlayer},
   {path:'*',redirect:'/findMusic'},
-  {path:'*',redirect:'/musicPlayer'},
   {path:'/musicPlayer',component:MusicPlayer},
   {path:'/findMusic',component:FindMusic},
   {path:'/myMusic',component:MyMusic},
@@ -78,7 +80,8 @@ const routes = [
   {path:'/recentPlay',component:RecentPlay},
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
-	{path:'/songList',component:SongList}
+	{path:'/songList',component:SongList},
+	{path:'/hunt',component:Hunt}
 ]
 const router = new VueRouter({
   routes:routes

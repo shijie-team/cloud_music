@@ -33,7 +33,7 @@
         <i class="iconfont icon-quku"  @click='showMenu'></i>
       </div>
     </div>
-    <SongsMenu v-show='menuShow'></SongsMenu>
+    <SongsMenu v-show='menuShow' @changeCurrenSong="changeSong"></SongsMenu>
   </div>
 </template>
 <script type="text/javascript">
@@ -46,31 +46,41 @@ export default {
   },
   data(){
     return{
-      songsName:"super star",
+      songsName:"",
       songs:[],
       playStates:['red','green','yellow'],
       playStateIndex:0,
-      author:'S.H.E',
+      author:'',
       songImg:'',
       currentSongUrl:'',
       songRange:0,
       currentTime:'00:00',
       totalTime:'00:00',
       playedSongs:[],
-      currentSongIndex:0,
+      // currentSongIndex:0,
       audioVolume:0,
       checkTimer:0,
       isPlay:'',
-      crrentSong:{},
+      // currentSong:{},
       isCollected:'',
     }
   },
   computed:{
+    currentSong(){
+      var songObj ={};
+      if(this.songs && this.songs.length){
+        songObj =   this.songs[this.currentSongIndex];
+      }
+        return songObj;
+    },
     playStatue:function(){
       return this.playStates[this.playStateIndex];
     },
     menuShow(){
       return this.$store.state.menuIsShow;
+    },
+    currentSongIndex(){
+      return this.$store.state.selectedSongIndex;
     }
   },
   methods:{
@@ -79,25 +89,41 @@ export default {
       if(playedSongs){
         this.playedSongs = playedSongs;
       }
+      var index = this.getSongIndex(this.playedSongs,songObj);
+      if(index || index ==0){
+        this.playedSongs.splice(index,1);
+      }
       this.playedSongs.unshift(songObj);
       localStorage.setItem('playedSongs',JSON.stringify(this.playedSongs));
     },
-    setCollection(){
+    isTheSongCollected(songObj){
       var songs = JSON.parse(localStorage.getItem('collectioned'));
       if(!songs){
         songs = [];
       }
-      if(this.currentSong.title){
-        var index = this.getSongIndex(songs,this.currentSong)
+      if(songObj.aid){
+        var index = this.getSongIndex(songs,songObj)
         if(index || index === 0){
+        return index;
+        } else {
+        return -1;
+        }
+      }
+    },
+    setCollection(){
+        var index =   this.isTheSongCollected(this.currentSong);
+        var songs = JSON.parse(localStorage.getItem('collectioned'));
+        if(!songs){
+          songs = [];
+        }
+        if(index !== -1){
           songs.splice(index,1);
           this.isCollected = ''
         } else {
           songs.unshift(this.currentSong);
           this.isCollected = 'isCollected'
         }
-      }
-      localStorage.setItem('collectioned',JSON.stringify(songs));
+        localStorage.setItem('collectioned',JSON.stringify(songs));
     },
     checkPlayStatus(){
       if(this.$refs.audio && this.$refs.audio.ended){
@@ -124,7 +150,6 @@ export default {
       }
     },
     changeSongs(){
-
       if(this.playStateIndex === 0){ //顺序播放
       } else if(this.playStateIndex === 1){ //循环单曲
         --this.currentSongIndex;
@@ -154,22 +179,20 @@ export default {
       this.$refs.audio.currentTime =this.$refs.audio.duration * this.songRange/100;
       this.setSongTime();
     },
-    getSongs(api){
+    getSongs(songObj){
       var songs = JSON.parse(localStorage.getItem('collectioned'));
       if(songs){
         this.songs = songs;
       }
-      this.$http.get(api)
-      .then(function(res){
-        var songObj = res.data[1].items["0"];
+      if(songObj){
         if(this.getSongIndex(this.songs,songObj) || this.getSongIndex(this.songs,songObj) === 0){
               this.currentSongIndex = this.getSongIndex(this.songs,songObj);
         } else {
-            this.songs.unshift(songObj);
-             this.currentSongIndex = 0;
+              this.songs.unshift(songObj);
+              this.currentSongIndex = 0;
         }
-        this.initSongData(this.songs[0]);
-      })
+      }
+        this.initSongData(this.songs[this.currentSongIndex]);
 
     },
     setSongTime(){
@@ -193,6 +216,12 @@ export default {
       if(!songObj){
         return;
       }
+      if(this.isTheSongCollected(songObj) !== -1){
+        this.isCollected = 'isCollected'
+      } else {
+        this.isCollected = ''
+      };
+
       this.currentSong = songObj;
       this.songsName = songObj.title;
       this.author = songObj.artist_name;
@@ -201,16 +230,16 @@ export default {
       if(this.$refs.audio){
         this.audioVolume = this.$refs.audio.volume;
         this.$refs.audio.currentTime = 0;
-        this.setPlayedSong(songObj);
+        this.setPlayedSong(this.currentSong);
         this.playOrStop();
       } else {
-        setTimeout(this.initSongData,20,songObj)
+        setTimeout(this.initSongData,20,this.currentSong)
       }
 
     },
     getSongIndex(songs,songObj){
       for(var i = 0 ; i < songs.length;i++){
-        if(songs[i].title  == songObj.title){
+        if(songs[i].aid  == songObj.aid){
             return i;
         }
       }
@@ -225,14 +254,22 @@ export default {
     showMenu(){
       this.$store.dispatch('setSongsList',this.songs);
       this.$store.dispatch('showMenu',true);
+    },
+    changeSong(){
+      this.playOrStop();
+      this.getSongs(this.currentSong);
     }
   },
   mounted(){
-    var api = 'https://douban.fm/j/v2/query/all?q=On The Night Like This&start=0&limit=all'
-    this.getSongs(api);
-    clearInterval(this.checkTimer)
+    var songOjb = JSON.parse(localStorage.getItem('singleSong'));
+    localStorage.removeItem('singleSong');
+    this.getSongs(songOjb);
+    clearInterval(this.checkTimer);
     this.checkTimer = setInterval(this.checkPlayStatus,20);
-  }
+  },
+    beforeRouteLeave (to, from, next) {
+        clearInterval(this.checkTimer);
+    }
 }
 </script>
 
@@ -244,7 +281,7 @@ export default {
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
-.wrap img{width: 100%;height: 100%;position: absolute;left: 0;top: 0;border-radius: 50%;}
+.wrap img{width: 100%;height: 100%;position: absolute;left: 0;z-index: 100;top: 0;border-radius: 50%;}
 .wrap img:last-child{width: 50%;height: 50%;left: 25%;top: 25%;}
 .author{margin-top: 1.33rem /* 100/75 */;font-size: 0.4rem /* 30/75 */;text-align: center;color: rgba(255,255,255,0.8);line-height: 0.67rem /* 50/75 */;}
 .volume{font-size: 0.4rem /* 30/75 */;text-align: left;line-height:0.53rem /* 40/75 */;color: rgba(255,255,255,0.8)}

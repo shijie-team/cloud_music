@@ -1,10 +1,12 @@
 <template lang="html">
-	<div id="findMusic">
+	<div id="findMusic"  @scroll='Scr()' ref='assr' >
 		<!--<router-view></router-view>-->
+		<div class="arr">
 		<div class="seek">
 			<p><i class="iconfont icon-maikefeng"></i></p>
-			<p><input type="text" placeholder="搜索音乐" />
+			<p><router-link to="/hunt"><input type="text" placeholder="搜索音乐" />
 				<span class="icoi"><i class="iconfont icon-sousuo"></i></span>
+				</router-link>
 			</p>
 			<p><i class="iconfont icon-paixingbang"></i></p>
 		</div>
@@ -14,9 +16,9 @@
 			<li v-bind:class="{ active: isBroadcasting}" v-on:click="broadcasting ()">主播电台</li>
 			<li v-bind:class="{ active: isRanking}" v-on:click="ranking ()">排行榜</li>
 		</ul>
-
-
-			<div class="findPersonalized" ref="findsong">
+		</div>
+		<div class="ass"  >
+			<div class="findPersonalized"  ref="findsong">
 				<div class="findScenario">
 					<p class="findType"><span></span>心情/场景</p>
 					<ul class="findArtist">
@@ -105,7 +107,7 @@
 					</li>
 				</ul>
 			</div>
-
+		</div>
 	</div>
 
 </template>
@@ -161,6 +163,31 @@
 					this.common(res.body)
 					console.log(res)
 				})
+			},
+			Scr:function(event){
+				console.log(this.$refs.assr.scrollLeft)
+				this.$refs.findsong.style.display = 'block';
+				this.$refs.findHost.style.display = 'block';
+				this.$refs.findStation.style.display = "block";
+				this.$refs.songRanking.style.display = "block";
+				if(this.$refs.assr.scrollLeft >= 100){
+					this.$refs.assr.scrollLeft=0
+					this.$refs.assr.scrollLeft=750
+				}
+				if(this.$refs.assr.scrollLeft <=700){
+					this.$refs.assr.scrollLeft=0
+					this.$refs.assr.scrollLeft=-750
+					
+				}
+				
+				if(this.$refs.assr.scrollLeft >= 800){
+					this.$refs.assr.scrollLeft=750
+					this.$refs.assr.scrollLeft=1500
+				}
+//				if(this.$refs.assr.scrollLeft >= 2550){
+//					this.$refs.assr.scrollLeft=2250
+//					this.$refs.assr.scrollLeft=3000
+//				}
 			},
 			common: function(pan) {
 				for(var i = 0; i < pan.length; i++) {
@@ -252,6 +279,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
+		padding-top: 2.5rem;
 	}
 	
 	.findArtist {
@@ -282,7 +310,7 @@
 	
 	.findOption {
 		width: 100%;
-		height: 7%;
+		height: 1rem;
 	}
 	
 	.findOption>li {
@@ -348,16 +376,18 @@
 	}
 	
 	.findPersonalized {
-		width: 100%;
-		height: 93%;
+		width: 10rem;
+		height: 100%;
 		overflow: auto;
+		float: left;
 	}
 	
 	.findSingle {
-		width: 100%;
-		height: 93%;
+		width: 10rem;
+		height: 100%;
 		overflow: auto;
 		display: none;
+		float: left;
 	}
 	
 	.boutique {
@@ -474,10 +504,11 @@
 	}
 	
 	.findBroadcasting {
-		width: 100%;
-		height: 93%;
+		width: 10rem;
+		height: 100%;
 		overflow: auto;
 		display: none;
+		float: left;
 	}
 	
 	.broadcasUl {
@@ -591,5 +622,28 @@
 	
 	.icoi>.iconfont {
 		font-size: .5rem;
+	}
+	.ass{
+		width: 40rem;
+		height: 100%;
+		overflow-x: auto;
+   	    top: 2.5rem;
+	}
+	.songRanking{
+		width: 10rem;
+		height: 100%;
+		overflow: auto;
+		display: none;
+		float: left;
+	}
+	.arr{
+		width: 10rem;
+	    position: fixed;
+	    height: 2.5rem;
+	    top: 0px
+	}
+	.footer {
+		position: fixed;
+		bottom: 0rem;
 	}
 </style>
