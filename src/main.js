@@ -83,7 +83,7 @@ const routes = [
   {path:'/myFm',component:MyFm},
   {path:'/myCollection',component:MyCollection},
 	{path:'/songList',component:SongList},
-  {path:'/recentPlay2',component:RecentPlay2}
+  {path:'/recentPlay2',component:RecentPlay2},
 	{path:'/hunt',component:Hunt}
 ]
 const router = new VueRouter({

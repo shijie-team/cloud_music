@@ -279,16 +279,18 @@ export default {
   },
   mounted(){
     var songOjb = JSON.parse(localStorage.getItem('singleSong'));
-    if(songOjb){
+    if(songOjb.aid){
       localStorage.removeItem('singleSong');
       this.getSongs(songOjb);
     } else {
       var allSongs = JSON.parse(localStorage.getItem('playAllSongs'));
       if(allSongs && allSongs.length > 0){
+        localStorage.removeItem('playAllSongs');
         this.songs = this.songs.concat(allSongs);
           this.getSongs(this.songs[0]);
+      } else {
+        this.getSongs()
       }
-
     }
 
     clearInterval(this.checkTimer);

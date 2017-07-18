@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="myMusic" >
-      <router-view></router-view>
+    <router-view></router-view>
     <div class="innerWrap" @scroll="scrollFn()" ref="innerWrap">
       <!-- 顶部隐藏 -->
       <transition name="fadeDown">
@@ -13,7 +13,7 @@
             </ul>
           </div>
           <div class="hide" @click="toggle2=false" >
-        </div>
+          </div>
         </div>
       </transition>
       <!-- 頭部 -->
@@ -26,63 +26,63 @@
       </div>
       <!-- 頭部列表 -->
       <div class="playBox">
-          <div class="PlayList">
-              <div class="PlayListInfo">
-                  <!-- 本地音乐 -->
-                  <router-link to="LocalMusic">
-                    <div class="playInfoItem">
-                      <div class="infoLeft">
-                        <i class="iconfont icon-mianxingtubiaoyinle"></i>
-                        <span class="texInfo">本地音乐</span>
-                      </div>
-                      <div class="infoRight">
-                        <span>0 </span>
-                        <i class="iconfont icon-houdongfangiconfont24"></i>
-                      </div>
-                    </div>
-                  </router-link>
-                  <!-- 最近播放 -->
-                  <router-link to="RecentPlay">
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-bofang-copy"></i>
-                      <span class="texInfo">最近播放</span>
-                    </div>
-                    <div class="infoRight">
-                      <span>{{num1}}</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
-                  </router-link>
-                  <!-- 我的电台 -->
-                  <router-link to="MyFm">
-                  <div class="playInfoItem">
-                    <div class="infoLeft">
-                      <i class="iconfont icon-diantaibaoshe"></i>
-                      <span class="texInfo">我的电台</span>
-                    </div>
-                    <div class="infoRight">
-                      <span>0</span>
-                      <i class="iconfont icon-houdongfangiconfont24"></i>
-                    </div>
-                  </div>
-                  </router-link>
-                  <!-- 我的收藏 -->
-                  <router-link to="MyCollection">
-                    <div class="playInfoItem">
-                      <div class="infoLeft">
-                        <i class="iconfont icon-wodeshoucang"></i>
-                        <span class="texInfo">我的收藏</span>
-                      </div>
-                      <div class="infoRight">
-                        <span>{{num}}</span>
-                        <i class="iconfont icon-houdongfangiconfont24"></i>
-                      </div>
-                    </div>
-                  </router-link>
-
+        <div class="PlayList">
+          <div class="PlayListInfo">
+            <!-- 本地音乐 -->
+            <router-link to="LocalMusic">
+              <div class="playInfoItem">
+                <div class="infoLeft">
+                  <i class="iconfont icon-mianxingtubiaoyinle"></i>
+                  <span class="texInfo">本地音乐</span>
+                </div>
+                <div class="infoRight">
+                  <span>0 </span>
+                  <i class="iconfont icon-houdongfangiconfont24"></i>
+                </div>
               </div>
+            </router-link>
+            <!-- 最近播放 -->
+            <router-link to="RecentPlay">
+              <div class="playInfoItem">
+                <div class="infoLeft">
+                  <i class="iconfont icon-bofang-copy"></i>
+                  <span class="texInfo">最近播放</span>
+                </div>
+                <div class="infoRight">
+                  <span>{{num1}}</span>
+                  <i class="iconfont icon-houdongfangiconfont24"></i>
+                </div>
+              </div>
+            </router-link>
+            <!-- 我的电台 -->
+            <router-link to="MyFm">
+              <div class="playInfoItem">
+                <div class="infoLeft">
+                  <i class="iconfont icon-diantaibaoshe"></i>
+                  <span class="texInfo">我的电台</span>
+                </div>
+                <div class="infoRight">
+                  <span>0</span>
+                  <i class="iconfont icon-houdongfangiconfont24"></i>
+                </div>
+              </div>
+            </router-link>
+            <!-- 我的收藏 -->
+            <router-link to="MyCollection">
+              <div class="playInfoItem">
+                <div class="infoLeft">
+                  <i class="iconfont icon-wodeshoucang"></i>
+                  <span class="texInfo">我的收藏</span>
+                </div>
+                <div class="infoRight">
+                  <span>{{num}}</span>
+                  <i class="iconfont icon-houdongfangiconfont24"></i>
+                </div>
+              </div>
+            </router-link>
+
           </div>
+        </div>
       </div>
       <!-- 收藏的歌单 -->
       <div class="titleInfo" ref = "titleInfo">
@@ -92,45 +92,46 @@
       <div class="createPlaylist">
         <div class="PlaylistTitle">
 
-            <div class="playListBox" v-show="toggle1" v-for="item in obj" @click="playMusic(item)">
-                <div class="palyListInfo">
+          <div class="playListBox" v-show="toggle1" v-for="item in obj" @click="playMusic(item)">
+            <div class="palyListInfo">
 
-                    <div class="listInfoLeft">
-                      <img :src="item.picture" alt="">
-                    </div>
+              <div class="listInfoLeft">
+                <img :src="item.picture" alt="">
+              </div>
 
-                    <div class="listInfoRight">
-                        <p class="listInfoRightTil">{{item.albumtitle}}</p>
-                        <span>{{item.artist_name}}</span>
-                    </div>
-                </div>
+              <div class="listInfoRight">
+                <p class="listInfoRightTil">{{item.albumtitle}}</p>
+                <span>{{item.artist_name}}</span>
+              </div>
             </div>
+          </div>
         </div>
       </div>
-  </div>
+    </div>
 
   </div>
 </template>
 
 
 <script type="text/javascript">
-  import Animate from 'animate.css'
-  // import msg from '../assets/eventBus'
-  export default {
+import Animate from 'animate.css'
+// import msg from '../assets/eventBus'
+export default {
   data(){
     return{
-        toggle:true,toggle1:true,toggle2:false,
-        obj:[],
-        num:"",
-        obj1:[],
-        num1:''
+      toggle:true,toggle1:true,toggle2:false,
+      obj:[],
+      num:"",
+      obj1:[],
+      num1:''
     }
   },
-    methods:{
-      playMusic(){
-        this.$router.push({path: '/musicPlayer'})
-      },
-      scrollFn(){
+  methods:{
+    playMusic(songObj){
+        localStorage.setItem('singleSong',JSON.stringify(songObj));
+      this.$router.push({path: '/musicPlayer'})
+    },
+    scrollFn(){
       console.log(this.$refs.innerWrap.scrollTop);
       var scrollTop = this.$refs.innerWrap.scrollTop;
       if (scrollTop > 295){
@@ -141,7 +142,7 @@
 
       }
 
-      }
+    }
 
   },
   mounted(){

@@ -14,7 +14,7 @@
 		</ul>
 		<p class="m-con"><b>收藏的歌单</b><span>({{songs.length}})</span>	</p>
 		<ul class="list">
-			<li v-for='item in songs' @click='play'>
+			<li v-for='item in songs' @click='play(item)'>
 				<div class="pic pic1">
 					<img :src="item.cover"/>
 				</div>
@@ -42,8 +42,8 @@
 		    }
 		},
 		methods:{
-			play(){
-				localStorage.setItem('singlegong',JSON.stringify(this.songs));
+			play(songObj){
+				localStorage.setItem('singleSong',JSON.stringify(songObj));
 				this.$router.push({path:'/musicPlayer'});
 			}
 		}
