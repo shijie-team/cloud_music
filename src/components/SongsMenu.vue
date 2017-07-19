@@ -44,7 +44,7 @@ export default{
       this.changeSong();
     },
     close(){
-      this.menuState = false;
+     
       this.$store.dispatch('showMenu',false);
     },
     changeSong(){
